@@ -8,4 +8,8 @@ testbenches and a comprehensive testbench provided by the TA. Adherence to the s
 so that they can complete their processor within four weeks. For undergraduate students, there is an additional penalty week to fulfill the milestone requirements.
 
 ## Week 1: ALU and BRC
+
 ## Week 2: Regfile, Memory, and LSU
+
+gayyyy
+
