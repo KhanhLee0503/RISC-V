@@ -1,42 +1,40 @@
-module ShiftRight_Arithmetic(
-						input [31:0] a,  b,  
-						output reg[31:0] y);
-						
-			always_comb begin
-			case(b) 
-			32'd0 : y={ a[31:0]};
-			32'd1 : y={{1{a[31]}} , a[31:1]};
-			32'd2 : y={{2{a[31]}} , a[31:2]};
-			32'd3 : y={{3{a[31]}} , a[31:3]};
-			32'd4 : y={{4{a[31]}} , a[31:4]};
-			32'd5 : y={{5{a[31]}} , a[31:5]};
-			32'd6 : y={{6{a[31]}} , a[31:6]};
-			32'd7 : y={{7{a[31]}} , a[31:7]};
-			32'd8 : y={{8{a[31]}} , a[31:8]};
-			32'd9 : y={{9{a[31]}} , a[31:9]};
-			32'd10 : y={{10{a[31]}} , a[31:10]};
-			32'd11 : y={{11{a[31]}} , a[31:11]};
-			32'd12 : y={{12{a[31]}} , a[31:12]};
-			32'd13 : y={{13{a[31]}} , a[31:13]};
-			32'd14 : y={{14{a[31]}} , a[31:14]};
-			32'd15 : y={{15{a[31]}} , a[31:15]};
-			32'd16 : y={{16{a[31]}} , a[31:16]};
-			32'd17 : y={{17{a[31]}} , a[31:17]};
-			32'd18 : y={{18{a[31]}} , a[31:18]};
-			32'd19 : y={{19{a[31]}} , a[31:19]};
-			32'd20 : y={{20{a[31]}} , a[31:20]};
-			32'd21 : y={{21{a[31]}} , a[31:21]};
-			32'd22 : y={{22{a[31]}} , a[31:22]};
-			32'd23 : y={{23{a[31]}} , a[31:23]};
-			32'd24 : y={{24{a[31]}} , a[31:24]};
-			32'd25 : y={{25{a[31]}} , a[31:25]};
-			32'd26 : y={{26{a[31]}} , a[31:26]};
-			32'd27 : y={{27{a[31]}} , a[31:27]};
-			32'd28 : y={{28{a[31]}} , a[31:28]};
-			32'd29 : y={{29{a[31]}} , a[31:29]};
-			32'd30 : y={{30{a[31]}} , a[31:30]};
-			32'd31 : y={{31{a[31]}} , a[31]};
-			default y={32{a[31]}};
-			endcase
-			end
-			endmodule
+module ShiftRight_Arithmetic(a, b, y);
+    parameter N = 32;
+    input [N-1:0] a;
+    input [4:0] b; 
+    output reg[N-1:0] y;
+
+    wire sign_bit = a[N-1]; // Lấy bit dấu của a
+
+    always_comb begin
+        reg [N-1:0] temp_shift;
+        temp_shift = a;
+        
+        // Stage 1
+        if (b[0]) begin
+            temp_shift = {sign_bit, temp_shift[N-1:1]};
+        end
+        
+        // Stage 2
+        if (b[1]) begin
+            temp_shift = {{2{sign_bit}}, temp_shift[N-1:2]};
+        end
+        
+        // Stage 3
+        if (b[2]) begin
+            temp_shift = {{4{sign_bit}}, temp_shift[N-1:4]};
+        end
+        
+        // Stage 4
+        if (b[3]) begin
+            temp_shift = {{8{sign_bit}}, temp_shift[N-1:8]};
+        end
+        
+        // Stage 5
+        if (b[4]) begin
+            temp_shift = {{16{sign_bit}}, temp_shift[N-1:16]};
+        end
+        
+        y = temp_shift;
+    end
+endmodule
