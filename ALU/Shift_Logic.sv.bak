@@ -116,13 +116,15 @@ endmodule
 //////////////////////
 //MUX 2 to 1 - 32bit//
 //////////////////////
-module mux2to1_32bit(input [31:0]In1, input [31:0]In2, input sel, output reg[31:0]out);
+module mux2to1_32bit(input [31:0]In1, input [31:0]In2, input sel, output [31:0]out);
+wire [31:0]out_bar;
 always_comb begin
 	case(sel)
-		1'b0: out = In1;
-		1'b1: out = In2;
-		default : out = 32'b0;
+		1'b0: out_bar = In1;
+		1'b1: out_bar = In2;
+		default : out_bar = 32'b0;
 	endcase
 end
+assign out = out_bar;
 endmodule	
 

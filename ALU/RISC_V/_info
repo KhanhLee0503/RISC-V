@@ -1,0 +1,530 @@
+m255
+K4
+z2
+13
+cModel Technology
+dC:/questasim64_10.2c/examples
+!s112 0.1
+!i10d 8192
+!i10e 25
+!i10f 100
+vadder_1bit
+Z0 DXx6 sv_std 3 std 0 22 `a<MJET1=lN@jzbA7kHm;1
+Z1 V`JN@9S9cnhjKRR_L]QIcM3
+r1
+31
+IH]0g_j`K0>b?T8=Pi?VIc0
+Z2 !s105 adder_32bit_sv_unit
+S1
+Z3 dC:/SystemVerilog/Milestone2/RISC-V/ALU
+Z4 w1757771508
+Z5 8C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv
+Z6 FC:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv
+L0 23
+Z7 OL;L;10.2c;57
+Z8 !s108 1758208413.663000
+Z9 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv|
+Z10 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv|
+Z11 o-work RISC_V -sv -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+!s85 0
+!i10b 1
+!s100 M>ilN<Ve`>IG7dY4EL;GC1
+!i111 0
+vadder_32bit
+Z12 DXx6 sv_std 3 std 0 22 `a<MJET1=lN@jzbA7kHm;1
+R1
+r1
+31
+I=ccaVfX?hbDCiMP9kb>Tk0
+R2
+S1
+R3
+R4
+R5
+R6
+L0 1
+R7
+R8
+R9
+R10
+R11
+!s85 0
+!i10b 1
+!s100 :9i3PJRXJQ3cmBZ=_UR@81
+!i111 0
+vALU
+R12
+R1
+r1
+31
+I`?99?LJJ<==<Rkl]:=iQL0
+Z13 !s105 ALU_sv_unit
+S1
+R3
+Z14 w1757916163
+Z15 8C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv
+Z16 FC:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv
+L0 13
+R7
+Z17 !s108 1758208413.705000
+Z18 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv|
+Z19 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv|
+R11
+n@a@l@u
+!s85 0
+!i10b 1
+!s100 ^f^bM7[7XF[DOVY8I`Ud=3
+!i111 0
+vALU_sub
+R12
+R1
+r1
+31
+I34d?jQI96zB?OKVRmQ=fX3
+R13
+S1
+R3
+R14
+R15
+R16
+L0 25
+R7
+R17
+R18
+R19
+R11
+n@a@l@u_sub
+!s85 0
+!i10b 1
+!s100 _2YJla]S?jFdAo;XI1VA@3
+!i111 0
+vALU_tb
+R12
+R1
+r1
+31
+I?YmaULP?>FUSd2CCW`nNi2
+S1
+R3
+w1758208406
+8C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv
+FC:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv
+L0 3
+R7
+R11
+n@a@l@u_tb
+!s85 0
+!i10b 1
+!s100 NkJ:oIB@HZX]M3<2QPojS1
+!s105 ALU_tb_sv_unit
+!s108 1758208413.925000
+!s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv|
+!s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv|
+!i111 0
+vAND_32bit
+R12
+R1
+r1
+31
+I`KLN=QNzbHgV2A2TfIm0W0
+Z20 !s105 two_complements_sv_unit
+S1
+R3
+Z21 w1757917215
+Z22 8C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv
+Z23 FC:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv
+L0 35
+R7
+Z24 !s108 1758208413.611000
+Z25 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv|
+Z26 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv|
+R11
+n@a@n@d_32bit
+!s85 0
+!i10b 1
+!s100 C?JG;m[>^DCSh1C:G65l]2
+!i111 0
+vBRC
+R12
+Z27 !s110 1758208413
+IM^<jI8S^ig?cmn1RaKaEo2
+R1
+Z28 !s105 BRC_sv_unit
+S1
+R3
+Z29 w1758075650
+Z30 8C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv
+Z31 FC:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv
+L0 1
+R7
+r1
+31
+Z32 !s108 1758208413.748000
+Z33 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv|
+Z34 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv|
+R11
+n@b@r@c
+!i10b 1
+!s100 a5^bHN<9TBaYdaPn=SMg]2
+!s85 0
+!i111 0
+vcomparator_1bit
+R12
+R1
+r1
+!s85 0
+31
+I1cTiWb`YYfBfEF:7[Oa2j3
+Z35 !s105 comparator_lt_sv_unit
+S1
+R3
+Z36 w1758204798
+Z37 8C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv
+Z38 FC:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv
+L0 113
+R7
+Z39 !s108 1758208413.787000
+Z40 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv|
+Z41 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv|
+R11
+!i10b 1
+!s100 Kg:`i]cz@f9zhg:``B0gH1
+!i111 0
+vcomparator_32bit
+R12
+R1
+r1
+31
+IUGkXH`<0>IVnKf@zk0K3?2
+R35
+S1
+R3
+R36
+R37
+R38
+L0 29
+R7
+R39
+R40
+R41
+R11
+!s85 0
+!i10b 1
+!s100 G@Oo@mH6^l;JBzdQe=ZOB0
+!i111 0
+vcomparator_4bit
+R12
+R1
+r1
+31
+I3[WnT^k9zYPEWaAkR`i800
+R35
+S1
+R3
+R36
+R37
+R38
+L0 73
+R7
+R39
+R40
+R41
+R11
+!s85 0
+!i10b 1
+!s100 0M8VIgQh7C`nUfgGVmWAU1
+!i111 0
+vcomparator_lt
+R12
+R1
+r1
+31
+I:<5556D1O`I<RTjS458A20
+R35
+S1
+R3
+R36
+R37
+R38
+L0 7
+R7
+R39
+R40
+R41
+R11
+!s85 0
+!i10b 1
+!s100 l??K;L79<K`EXA2P5]^:73
+!i111 0
+vcomparator_lt_equal
+R12
+R27
+I0cDLc^2<SRHR^B[`X=EU>0
+R1
+R28
+S1
+R3
+R29
+R30
+R31
+L0 15
+R7
+r1
+31
+R32
+R33
+R34
+R11
+!i10b 1
+!s100 dzfTDlQWo`HOH4BB]=Ikd2
+!s85 0
+!i111 0
+vmux2to1
+R12
+R1
+r1
+31
+IDcSU5>LF98Dm`W<D[O@;l1
+R35
+S1
+R3
+R36
+R37
+R38
+L0 143
+R7
+R39
+R40
+R41
+R11
+!s85 0
+!i10b 1
+!s100 Vk=KGzF1o0ZeP9dG]IBBJ3
+!i111 0
+vmux2to1_32bit
+R12
+R1
+r1
+31
+Im>?P]Zonn[GLVJ]aHJD2J1
+Z42 !s105 Shift_Logic_sv_unit
+S1
+R3
+Z43 w1758204850
+Z44 8C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv
+Z45 FC:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv
+L0 119
+R7
+Z46 !s108 1758208413.841000
+Z47 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv|
+Z48 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv|
+R11
+!s85 0
+!i10b 1
+!s100 bY9o]8<4CjoVgEfK3[4O92
+!i111 0
+vmux4to1
+R12
+R1
+r1
+31
+IMGBBW?_2Q:DcAX=]K@z:?1
+R35
+S1
+R3
+R36
+R37
+R38
+L0 127
+R7
+R39
+R40
+R41
+R11
+!s85 0
+!i10b 1
+!s100 Q03ZJklone5maKf4^9<6[3
+!i111 0
+vmux_16_to_1
+R12
+R1
+r1
+31
+IGdgVmnE<k@Kgf0Y2HYJL@2
+R13
+S1
+R3
+R14
+R15
+R16
+L0 104
+R7
+R17
+R18
+R19
+R11
+!s85 0
+!i10b 1
+!s100 _8d;3L9[IbL@WSd=ebZ7W1
+!i111 0
+vOR_32bit
+R12
+R1
+r1
+31
+IHijM^93FMJLjk_BX0Q;=R2
+R20
+S1
+R3
+R21
+R22
+R23
+L0 53
+R7
+R24
+R25
+R26
+R11
+n@o@r_32bit
+!s85 0
+!i10b 1
+!s100 _VNlP<GTNQozY3YJ=lg182
+!i111 0
+vShift_Logic
+R12
+R1
+r1
+31
+IfnSe2iB34;lXdK6@hZ33Y2
+R42
+S1
+R3
+R43
+R44
+R45
+L0 1
+R7
+R46
+R47
+R48
+R11
+n@shift_@logic
+!s85 0
+!i10b 1
+!s100 534HHeK3<R;EB_X1881cB2
+!i111 0
+vShiftLeft_Logic
+R12
+R1
+r1
+31
+IjLen31T4IkZ>g5YTEb>=G0
+R42
+S1
+R3
+R43
+R44
+R45
+L0 22
+R7
+R46
+R47
+R48
+R11
+n@shift@left_@logic
+!s85 0
+!i10b 1
+!s100 hK2__G79jGQT9]PcFA@K@2
+!i111 0
+vShiftRight_Arithmetic
+R12
+R1
+r1
+31
+IUhjcGFGL@9eia8H`CgM]42
+S1
+R3
+w1758204868
+8C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv
+FC:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv
+L0 1
+R7
+R11
+n@shift@right_@arithmetic
+!s85 0
+!i10b 1
+!s100 ^MX[L>1U;<Dcm0g;Zbe1^2
+!s105 ShiftRight_Arithmetic_sv_unit
+!s108 1758208413.888000
+!s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv|
+!s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv|
+!i111 0
+vShiftRight_Logic
+R12
+R1
+r1
+31
+ITPX7EZ4:j<_:?2j4h<z_E2
+R42
+S1
+R3
+R43
+R44
+R45
+L0 71
+R7
+R46
+R47
+R48
+R11
+n@shift@right_@logic
+!s85 0
+!i10b 1
+!s100 IAj7U]J?n_cOhFi5aacaH1
+!i111 0
+vtwo_complements
+R12
+R27
+IkCNe:B[IW1WG5FXCCZ2HS1
+R1
+R20
+S1
+R3
+R21
+R22
+R23
+L0 1
+R7
+r1
+31
+R24
+R25
+R26
+R11
+!i10b 1
+!s100 MEXlH>bITI?3G@]E;UlL@3
+!s85 0
+!i111 0
+vXOR_32bit
+R12
+R1
+r1
+31
+IQ_khWXgB;[QcLCI4iG4f^0
+R20
+S1
+R3
+R21
+R22
+R23
+L0 17
+R7
+R24
+R25
+R26
+R11
+n@x@o@r_32bit
+!s85 0
+!i10b 1
+!s100 DXL6@[Z^;`HfGXejzYLkE3
+!i111 0

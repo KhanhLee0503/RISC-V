@@ -1,0 +1,67 @@
+C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module two_complements
+-- Compiling module XOR_32bit
+-- Compiling module AND_32bit
+-- Compiling module OR_32bit
+
+Top level modules:
+	two_complements
+	AND_32bit
+	OR_32bit
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module ShiftRight_Arithmetic
+
+Top level modules:
+	ShiftRight_Arithmetic
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module ALU
+-- Compiling module ALU_sub
+-- Compiling module mux_16_to_1
+
+Top level modules:
+	ALU
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module Shift_Logic
+-- Compiling module ShiftLeft_Logic
+-- Compiling module ShiftRight_Logic
+-- Compiling module mux2to1_32bit
+
+Top level modules:
+	Shift_Logic
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module comparator_lt
+-- Compiling module comparator_32bit
+-- Compiling module comparator_4bit
+-- Compiling module comparator_1bit
+-- Compiling module mux4to1
+-- Compiling module mux2to1
+
+Top level modules:
+	comparator_lt
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module BRC
+-- Compiling module comparator_lt_equal
+
+Top level modules:
+	BRC
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module adder_32bit
+-- Compiling module adder_1bit
+
+Top level modules:
+	adder_32bit
+
+} {} {}}

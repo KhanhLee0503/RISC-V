@@ -140,7 +140,7 @@ endmodule
 //////////////
 //MUX 2 to 1//
 //////////////
-module mux2to1(input In1, input In2, input sel, output reg out);
+module mux2to1(input In1, input In2, input sel, output out);
 always_comb begin
 	case(sel)
 		1'b0: out = In1;
