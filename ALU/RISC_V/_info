@@ -22,7 +22,7 @@ Z5 8C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv
 Z6 FC:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv
 L0 23
 Z7 OL;L;10.2c;57
-Z8 !s108 1758208413.663000
+Z8 !s108 1758299746.899000
 Z9 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv|
 Z10 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/adder_32bit.sv|
 Z11 o-work RISC_V -sv -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
@@ -66,7 +66,7 @@ Z15 8C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv
 Z16 FC:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv
 L0 13
 R7
-Z17 !s108 1758208413.705000
+Z17 !s108 1758299746.954000
 Z18 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv|
 Z19 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU.sv|
 R11
@@ -106,7 +106,7 @@ r1
 I?YmaULP?>FUSd2CCW`nNi2
 S1
 R3
-w1758208406
+w1758208452
 8C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv
 FC:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv
 L0 3
@@ -117,7 +117,7 @@ n@a@l@u_tb
 !i10b 1
 !s100 NkJ:oIB@HZX]M3<2QPojS1
 !s105 ALU_tb_sv_unit
-!s108 1758208413.925000
+!s108 1758299747.167000
 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv|
 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv|
 !i111 0
@@ -135,7 +135,7 @@ Z22 8C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv
 Z23 FC:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv
 L0 35
 R7
-Z24 !s108 1758208413.611000
+Z24 !s108 1758299746.737000
 Z25 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv|
 Z26 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/two_complements.sv|
 R11
@@ -146,7 +146,7 @@ n@a@n@d_32bit
 !i111 0
 vBRC
 R12
-Z27 !s110 1758208413
+Z27 !s110 1758299747
 IM^<jI8S^ig?cmn1RaKaEo2
 R1
 Z28 !s105 BRC_sv_unit
@@ -159,7 +159,7 @@ L0 1
 R7
 r1
 31
-Z32 !s108 1758208413.748000
+Z32 !s108 1758299747.002000
 Z33 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv|
 Z34 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/BRC.sv|
 R11
@@ -183,7 +183,7 @@ Z37 8C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv
 Z38 FC:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv
 L0 113
 R7
-Z39 !s108 1758208413.787000
+Z39 !s108 1758299747.040000
 Z40 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv|
 Z41 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/comparator_lt.sv|
 R11
@@ -306,22 +306,22 @@ R12
 R1
 r1
 31
-Im>?P]Zonn[GLVJ]aHJD2J1
+IoX]S03`b5DO_CNhO=:zA42
 Z42 !s105 Shift_Logic_sv_unit
 S1
 R3
-Z43 w1758204850
+Z43 w1758298125
 Z44 8C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv
 Z45 FC:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv
-L0 119
+L0 109
 R7
-Z46 !s108 1758208413.841000
+Z46 !s108 1758299747.084000
 Z47 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv|
 Z48 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv|
 R11
 !s85 0
 !i10b 1
-!s100 bY9o]8<4CjoVgEfK3[4O92
+!s100 @Hg[aUM6bE09B5b48U;<21
 !i111 0
 vmux4to1
 R12
@@ -418,7 +418,7 @@ R12
 R1
 r1
 31
-IjLen31T4IkZ>g5YTEb>=G0
+IBC2EZ>2V2aTn1;;V>LU2V2
 R42
 S1
 R3
@@ -434,17 +434,17 @@ R11
 n@shift@left_@logic
 !s85 0
 !i10b 1
-!s100 hK2__G79jGQT9]PcFA@K@2
+!s100 5H>HYdOHkA<=?BSBNgH7E2
 !i111 0
 vShiftRight_Arithmetic
 R12
 R1
 r1
 31
-IUhjcGFGL@9eia8H`CgM]42
+IPI44YTiLo7L0EIQ35A89c3
 S1
 R3
-w1758204868
+w1758299079
 8C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv
 FC:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv
 L0 1
@@ -453,9 +453,9 @@ R11
 n@shift@right_@arithmetic
 !s85 0
 !i10b 1
-!s100 ^MX[L>1U;<Dcm0g;Zbe1^2
+!s100 g`Wd`N9WNZeZj=1A^8]fY3
 !s105 ShiftRight_Arithmetic_sv_unit
-!s108 1758208413.888000
+!s108 1758299747.130000
 !s107 C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv|
 !s90 -reportprogress|300|-work|RISC_V|-vopt|-sv|C:/SystemVerilog/Milestone2/RISC-V/ALU/ShiftRight_Arithmetic.sv|
 !i111 0
@@ -464,14 +464,14 @@ R12
 R1
 r1
 31
-ITPX7EZ4:j<_:?2j4h<z_E2
+ILeQF0QRb[;KKz;j?<4`UH2
 R42
 S1
 R3
 R43
 R44
 R45
-L0 71
+L0 66
 R7
 R46
 R47
@@ -480,11 +480,10 @@ R11
 n@shift@right_@logic
 !s85 0
 !i10b 1
-!s100 IAj7U]J?n_cOhFi5aacaH1
+!s100 WG[fc`JQG=18?ZWnkQgYb1
 !i111 0
 vtwo_complements
 R12
-R27
 IkCNe:B[IW1WG5FXCCZ2HS1
 R1
 R20
@@ -501,6 +500,7 @@ R24
 R25
 R26
 R11
+!s110 1758299746
 !i10b 1
 !s100 MEXlH>bITI?3G@]E;UlL@3
 !s85 0

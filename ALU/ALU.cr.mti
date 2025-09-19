@@ -26,6 +26,13 @@ QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
 Top level modules:
 	ALU
 
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/ALU_tb.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module ALU_tb
+
+Top level modules:
+	ALU_tb
+
 } {} {}} C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/ALU/Shift_Logic.sv
 QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
 -- Compiling module Shift_Logic
