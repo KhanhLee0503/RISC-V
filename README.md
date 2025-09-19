@@ -11,5 +11,3 @@ so that they can complete their processor within four weeks. For undergraduate s
 
 ## Week 2: Regfile, Memory, and LSU
 
-gayyyy
-
