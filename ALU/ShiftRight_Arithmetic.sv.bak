@@ -1,6 +1,6 @@
 module ShiftRight_Arithmetic(
 						input [31:0] a,  b,  
-						output reg[31:0] y);
+						output [31:0] y);
 						
 			always_comb begin
 			case(b) 
