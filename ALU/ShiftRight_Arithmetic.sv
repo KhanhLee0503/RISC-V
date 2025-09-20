@@ -1,7 +1,7 @@
 module ShiftRight_Arithmetic(a, b, y);
     parameter N = 32;
     input [N-1:0] a;
-    input [4:0] b; 
+    input [N-1:0] b; 
     output reg[N-1:0] y;
 
     wire sign_bit = a[N-1]; // Lấy bit dấu của a
