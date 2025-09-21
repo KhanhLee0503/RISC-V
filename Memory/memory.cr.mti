@@ -1,0 +1,15 @@
+C:/SystemVerilog/Milestone2/RISC-V/Memory/memory.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/Memory/memory.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module memory
+
+Top level modules:
+	memory
+
+} {} {}} C:/SystemVerilog/Milestone2/RISC-V/Memory/memory_tb.sv {1 {vlog -work RISC_V -vopt -sv C:/SystemVerilog/Milestone2/RISC-V/Memory/memory_tb.sv
+QuestaSim-64 vlog 10.2c Compiler 2013.07 Jul 19 2013
+-- Compiling module memory_test
+
+Top level modules:
+	memory_test
+
+} {} {}}
