@@ -1,6 +1,6 @@
 /*------comparator_lt - so sanh so co dau va khong dau-------
 *Input-32bit: A,B
-*Input-1bit: sel_signed (Neu = 0 thi so sanh so khong dau, nguoc lai thi so sanh so co dau)
+*Input-1bit: sel_signed (Neu = 0 thi so sanh so co dau, nguoc lai thi so sanh so khong dau)
 *Output-32bit: AltB_o (Neu A<B thi AltB_o = 1)
 */
 
@@ -14,9 +14,7 @@ input sel_signed;
 output AltB_o;
 wire outbar;
 wire out_signed;
-
 	comparator_32bit com1(.in_1(A), .in_2(B), .AltB(outbar));
-
 	mux4to1 mux1(.In1(outbar), .In2(AgtB_i), .In3(AltB_i), .In4(outbar), .sel({A[N-1],B[N-1]}), .out(out_signed));
 	mux2to1 mux2(.In1(out_signed), .In2(outbar), .sel(sel_signed), .out(AltB_o));
 endmodule
@@ -45,7 +43,7 @@ assign AltB_ex[0] = 0;
 assign AgtB_ex[0] = 0;
 
 generate
-	for(j=0; j<8; j=j+1) begin : comparator_32bit
+	for(j=0; j<8; j=j+1) begin : cmp_block
 		localparam i=j*4;
 		comparator_4bit c(.A(in_1[i+3:i]),
 								.B(in_2[i+3:i]),
@@ -95,14 +93,15 @@ wire AeqB_3;
 wire AltB_3;
 wire AgtB_3;
 					 
-comparator_1bit c0(.A(A[0]), .B(B[0]), .AgtB(AgtB_0), .AltB(AltB_0), .AeqB(AeqB_0));
-comparator_1bit c1(.A(A[1]), .B(B[1]), .AgtB(AgtB_1), .AltB(AltB_1), .AeqB(AeqB_1));
-comparator_1bit c2(.A(A[2]), .B(B[2]), .AgtB(AgtB_2), .AltB(AltB_2), .AeqB(AeqB_2));
+
 comparator_1bit c3(.A(A[3]), .B(B[3]), .AgtB(AgtB_3), .AltB(AltB_3), .AeqB(AeqB_3));
+comparator_1bit c2(.A(A[2]), .B(B[2]), .AgtB(AgtB_2), .AltB(AltB_2), .AeqB(AeqB_2));
+comparator_1bit c1(.A(A[1]), .B(B[1]), .AgtB(AgtB_1), .AltB(AltB_1), .AeqB(AeqB_1));
+comparator_1bit c0(.A(A[0]), .B(B[0]), .AgtB(AgtB_0), .AltB(AltB_0), .AeqB(AeqB_0));
 
 assign AeqB_o = AeqB_3&AeqB_2&AeqB_1&AeqB_0&AeqB_i;
-assign AgtB_o = AgtB_3 | AeqB_3&AgtB_2 | AeqB_3&AeqB_2&AgtB_1 | AeqB_3&AeqB_2&AeqB_1&AgtB_0 | AeqB_3&AeqB_2&AeqB_1&AeqB_0&AgtB_i&(~AltB_i)&(~AeqB_i) | AeqB_3&AeqB_2&AeqB_1&AeqB_0&(~AgtB_i)&(~AltB_i)&(~AeqB_i);
-assign AltB_o = AltB_3 | AeqB_3&AltB_3 | AeqB_3&AeqB_2&AltB_1 | AeqB_3&AeqB_2&AeqB_1&AltB_0 | AeqB_3&AeqB_2&AeqB_1&AeqB_0&AltB_i&(~AgtB_i)&(~AeqB_i) | AeqB_3&AeqB_2&AeqB_1&AeqB_0&(~AgtB_i)&(~AltB_i)&(~AeqB_i);
+assign AgtB_o = AgtB_3 | (AeqB_3 & AgtB_2) | (AeqB_3 & AeqB_2 & AgtB_1) | (AeqB_3 & AeqB_2 & AeqB_1 & AgtB_0) | (AeqB_3 & AeqB_2 & AeqB_1 & AeqB_0 & AgtB_i);
+assign AltB_o = AltB_3 | (AeqB_3 & AltB_2) | (AeqB_3 & AeqB_2 & AltB_1) | (AeqB_3 & AeqB_2 & AeqB_1 & AltB_0) | (AeqB_3 & AeqB_2 & AeqB_1 & AeqB_0 & AltB_i);
 endmodule
 
 

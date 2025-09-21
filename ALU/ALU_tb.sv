@@ -3,7 +3,7 @@
 module ALU_tb();
 reg signed [31:0] a;
 reg signed [31:0] b;
-reg [4:0] op;
+reg [3:0] op;
 wire signed [31:0] r;
 
 parameter ADD  = 4'b0000;
@@ -48,15 +48,80 @@ initial begin
     
     
     #10
-    a = 32'd10;
-    b = 32'd5;
+    a = 32'd1800000032;
+    b = 32'd1283744400;
     op =  AND;
 
- end   
+    #10
+    a = 32'd49;
+    b = 32'd5;
+    op =  SLL;
+
+    #10
+    a = 32'd12033;
+    b = 32'd5;
+    op =  SRL;
+
+    #10
+    a = -32'd25002;
+    b = -32'd4000;
+    op =  SLTU;
+
+    #10
+    a = -32'd18930002;
+    b = 32'd102847;
+    op =  SLTU;
+
+     #10
+    a = 32'd75830;
+    b = -32'd2834000;
+    op =  SLTU;
+
+    #10
+    a = 32'd25002;
+    b = 32'd4000;
+    op =  SLTU;
+
+    #10
+    a = 32'd125002;
+    b = 32'd3404000;
+    op =  SLTU;
+
+
+    #10
+    a = -32'd25002;
+    b = -32'd4000;
+    op =  SLT;
+
+    #10
+    a = -32'd18930002;
+    b = 32'd102847;
+    op =  SLT;
+
+     #10
+    a = 32'd75830;
+    b = -32'd2834000;
+    op =  SLT;
+
+    #10
+    a = 32'd25002;
+    b = 32'd4000;
+    op =  SLT;
+
+    #10
+    a = 32'd125002;
+    b = 32'd3404000;
+    op =  SLT;
+
+    #10
+    a = -32'd445060133;
+    b = 32'd15;
+    op =  SRA;
+end   
     
 always@ (*) begin
     #1
-    casez(op)
+    case(op)
         ADD: begin
             //r_ = a + b;
             if (r == a + b) $display ("[%t][Information] Operation is ADD. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
@@ -69,19 +134,45 @@ always@ (*) begin
         end
         XOR: begin
             //r_ = a ^ b;
-            if (r == a ^ b) $display ("[%t][Information] Operation is XOR. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            if (r == (a ^ b)) $display ("[%t][Information] Operation is XOR. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
             else $display ("[%t][Information] Operation is XOR. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
         end
         OR: begin
             //r_ = a | b;
-            if (r == a | b) $display ("[%t][Information] Operation is OR. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            if (r == (a | b)) $display ("[%t][Information] Operation is OR. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
             else $display ("[%t][Information] Operation is OR. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
         end
         AND: begin
             //r_ = a & b;
-            if (r == a & b) $display ("[%t][Information] Operation is AND. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            if (r == (a & b)) $display ("[%t][Information] Operation is AND. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
             else $display ("[%t][Information] Operation is AND. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
         end
+        SLL: begin
+            //r_ = a << b;
+            if (r == a << b) $display ("[%t][Information] Operation is Shift Left Logic. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            else $display ("[%t][Information] Operation is Shift Left Logic. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
+        end
+        SRL: begin
+            //r_ = a >> b;
+            if (r == a >> b) $display ("[%t][Information] Operation is Shift Right Logic. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            else $display ("[%t][Information] Operation is Shift Right Logic. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
+        end
+        SRA: begin
+            //r_ = a >>> b;
+            if (r == a >>> b) $display ("[%t][Information] Operation is Shift Right Arithmetic. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            else $display ("[%t][Information] Operation is Shift Right Arithmetic. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
+        end
+        SLTU: begin
+            //r_ = unsigned (a < b);
+            if (r == $unsigned(a) < $unsigned(b) ) $display ("[%t][Information] Operation is Set Less Than Unsigned. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            else $display ("[%t][Information] Operation is Set Less Than Unsigned. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
+        end
+        SLT: begin
+            //r_ = a < b;
+            if (r == $signed(a) < $signed(b) ) $display ("[%t][Information] Operation is Set Less Than. a is %d, b is %d, result is %d, correct!", $time,a,b,r);
+            else $display ("[%t][Information] Operation is Set Less Than. a is %d, b is %d, result is %d, NOT correct!", $time,a,b,r);
+        end
+
         default: $display ("[%t][Warning] Operator is invalid!", $time);
     endcase
 end

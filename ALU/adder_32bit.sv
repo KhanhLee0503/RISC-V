@@ -13,7 +13,7 @@ assign C[0] = sel;
 assign C[N] = CarryOut;
 
 generate
-    for(i=0; i<N; i=i+1) begin : adder_32bit
+    for(i=0; i<N; i=i+1) begin : adder
         adder_1bit stage(.in1(A[i]), .in2(B[i]), .in3(C[i]), .sel(sel), .S(OUT[i]), .C(C[i+1]));
     end
 endgenerate
