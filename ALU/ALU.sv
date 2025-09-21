@@ -44,8 +44,8 @@ parameter SRA  = 4'b1001;
 wire [N-1:0] carry_o;
 wire [N-1:0] Adder;
 wire [N-1:0] Subtractor;
-wire [N-1:0] SetLessThan;
-wire [N-1:0] SetLessThan_Unsigned;
+wire SetLessThan;
+wire SetLessThan_Unsigned;
 wire [N-1:0] XOR_gates;
 wire [N-1:0] OR_gates;
 wire [N-1:0] AND_gates;
@@ -76,8 +76,8 @@ ShiftRight_Arithmetic ShiftRightArithmetic(.a(A), .b(B), .y(ShiftRight_arithmeti
 mux_16_to_1 ALU_mux(
     .in0(Adder), // Đầu vào 0 (32 bit)
     .in1(Subtractor),
-	 .in2(SetLessThan),
-    .in3(SetLessThan_Unsigned),
+	.in2({31'b0,SetLessThan}),
+    .in3({31'b0,SetLessThan_Unsigned}),
     .in4(XOR_gates),
     .in5(OR_gates),
     .in6(AND_gates),
@@ -119,7 +119,7 @@ module mux_16_to_1 (
     input logic [31:0] in14,
     input logic [31:0] in15, // Đầu vào 15 (32 bit)
     input logic [3:0] sel,             // 4 bit chọn
-    output logic [31:0] output_data    // 1 đầu ra 32 bit
+    output reg[31:0] output_data    // 1 đầu ra 32 bit
 );
     always_comb begin
         case (sel)
