@@ -34,6 +34,15 @@ initial begin
     b = 32'd3404000;
     sign_sel = SIGNED;
 
+    #10
+    a = 32'd12500;
+    b = 32'd12500;
+    sign_sel = SIGNED;
+    
+    #10
+    a = -32'd12500;
+    b = -32'd12500;
+    sign_sel = SIGNED;
 
     #10
     a = -32'd25002;
@@ -58,6 +67,16 @@ initial begin
     #10
     a = 32'd125002;
     b = 32'd3404000;
+    sign_sel = UNSIGNED;
+
+    #10
+    a = 32'd12500;
+    b = 32'd12500;
+    sign_sel = UNSIGNED;
+
+    #10
+    a = -32'd12500;
+    b = -32'd12500;
     sign_sel = UNSIGNED;
 end
 
