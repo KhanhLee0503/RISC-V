@@ -4,35 +4,48 @@
 *Output-32bit: AltB_o (Neu A<B thi AltB_o = 1)
 */
 
-module comparator_lt(A, B, sel_signed, AltB_o);
+module comparator_lt(
+							A,
+							B,
+							sel_signed,
+							AltB_o);
 parameter N = 32;
 parameter AltB_i = 1'b1;
 parameter AgtB_i = 1'b0;
-input [N-1:0] A;
-input [N-1:0] B;
-input sel_signed;
-output AltB_o;
+input logic [N-1:0] A;
+input logic [N-1:0] B;
+input logic sel_signed;
+output logic AltB_o;
+
+wire unused_gt;
+wire unused_eq;
 wire outbar;
 wire out_signed;
-	comparator_32bit com1(.in_1(A), .in_2(B), .AltB(outbar));
-	mux4to1 mux1(.In1(outbar), .In2(AgtB_i), .In3(AltB_i), .In4(outbar), .sel({A[N-1],B[N-1]}), .out(out_signed));
-	mux2to1 mux2(.In1(out_signed), .In2(outbar), .sel(sel_signed), .out(AltB_o));
+
+   comparator_32bit com1(.in_1(A), .in_2(B), .AltB(outbar), .AgtB(unused_gt), .AeqB(unused_eq));
+	mux4to1 mux4to1(.In1(outbar), .In2(AgtB_i), .In3(AltB_i), .In4(outbar), .sel({A[N-1],B[N-1]}), .out(out_signed));
+	mux2to1 mux2to1(.In1(out_signed), .In2(outbar), .sel(sel_signed), .out(AltB_o));
 endmodule
 
-//-----------------------Sub_Modules------------------------------//
+//-------------------------------Sub_Modules---------------------------------//
 
 ///////////////////////////
 //Module Comparator 32 Bit//
 ///////////////////////////
-module comparator_32bit(in_1, in_2, AgtB, AltB, AeqB);
+module comparator_32bit(
+								in_1,
+								in_2,
+								AgtB,
+								AltB,
+								AeqB
+								);
 parameter N = 32;
-input [N-1:0] in_1;
-input [N-1:0] in_2;
-output AgtB;
-output AltB;
-output AeqB;
-genvar i;
-genvar j;
+
+input logic [N-1:0] in_1;
+input logic [N-1:0] in_2;
+output logic AgtB;
+output logic AltB;
+output logic AeqB;
 
 wire [8:0] AltB_ex;
 wire [8:0] AeqB_ex;
@@ -42,6 +55,8 @@ assign AeqB_ex[0] = 1;
 assign AltB_ex[0] = 0;
 assign AgtB_ex[0] = 0;
 
+genvar i;
+genvar j;
 generate
 	for(j=0; j<8; j=j+1) begin : cmp_block
 		localparam i=j*4;
@@ -68,27 +83,31 @@ endmodule
 ///////////////////////////
 //Module Comparator 4 Bit//
 ///////////////////////////
-module comparator_4bit( input[3:0]A,
-                   input [3:0]B,
-						 input AgtB_i,
-						 input AeqB_i,
-						 input AltB_i,
-                   output AgtB_o,
-                   output AltB_o,
-                   output AeqB_o
-                );				 
+module comparator_4bit( 
+						 input logic [3:0]A, B,
+						 input logic AgtB_i,
+						 input logic AeqB_i,
+						 input logic AltB_i,
+                   output logic AgtB_o,
+                   output logic AltB_o,
+                   output logic AeqB_o
+                      );				 
+//Compare bit_0
 wire AeqB_0;
 wire AltB_0;
 wire AgtB_0;
 
+//Compare bit_1
 wire AeqB_1;
 wire AltB_1;
 wire AgtB_1;
 
+//Compare bit_2
 wire AeqB_2;
 wire AltB_2;
 wire AgtB_2;
 
+//Compare bit_3
 wire AeqB_3;
 wire AltB_3;
 wire AgtB_3;
@@ -109,43 +128,15 @@ endmodule
 ///////////////////////////
 //Module Comparator 1 Bit//
 ///////////////////////////
-module comparator_1bit(input A,B,
-								output AgtB,AltB,AeqB);
+module comparator_1bit(
+							  input logic A,B,
+							  output logic AgtB, 		//Output when A>B
+							  output logic AltB,			//Output when A<B
+							  output logic AeqB			//Output when A=B
+							  );
 assign AeqB = A~^B;
 assign AgtB = A&~B;
 assign AltB = ~A&B;
-
 endmodule		
 
-
-
-		
-//////////////
-//MUX 4 to 1//
-//////////////
-module mux4to1(input In1, input In2, input In3, input In4, input [1:0] sel, output reg out);
-always_comb begin
-	case(sel)
-		2'b00: out = In1;
-		2'b01: out = In2;
-		2'b10: out = In3;
-		2'b11: out = In4;
-		default: out = 1'b0;
-	endcase
-end
-endmodule
-
-
-//////////////
-//MUX 2 to 1//
-//////////////
-module mux2to1(input In1, input In2, input sel, output reg out);
-always_comb begin
-	case(sel)
-		1'b0: out = In1;
-		1'b1: out = In2;
-		default : out = 1'b0;
-	endcase
-end
-endmodule	
 

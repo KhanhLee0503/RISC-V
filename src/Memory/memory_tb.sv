@@ -13,7 +13,6 @@ wire [31:0] o_rdata;
 //Initialize a second memory to test
 reg [31:0] sub_memory [0:511];
 
-
  memory dut (
     .i_clk(i_clk),
     .i_reset(i_reset),
@@ -24,6 +23,7 @@ reg [31:0] sub_memory [0:511];
     .o_rdata(o_rdata)
 );
 
+//Clock initialization (F = 100 MHz)
 initial begin
     i_clk = 1'b0;
     forever begin
@@ -31,8 +31,9 @@ initial begin
     end
 end
 
+
 initial begin
-    //Reset DUT
+//Reset DUT
     i_reset = 1'b1;
     i_wren = 1'b0;
     i_addr = 0;
@@ -40,12 +41,14 @@ initial begin
     i_bmask = 4'b0000;
     #10 i_reset = 1'b0;
     
-
+//Uploading data to sub_memory
     $display("Uploading data from image.hex to sub_memory...");
     $readmemh("random_512x32.hex", sub_memory, 0, 511);
 
+//Wait for it to finish uploading
     @(posedge i_clk);
 
+//Writing data from sub_memory to main memory
     $display("Start writing data from sub_memory to memory!!");
         for(integer i=0; i<512; i=i+1) begin
             i_wren = 1'b1;
@@ -56,7 +59,7 @@ initial begin
         end
         $display("Finished writing data.");
 
-
+//Begin to read data from main memory
     i_wren = 1'b0;
     @(posedge i_clk);
 

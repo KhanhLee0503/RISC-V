@@ -10,12 +10,12 @@ parameter ADD  = 4'b0000;
 parameter SUB  = 4'b0001;
 parameter SLT  = 4'b0010;
 parameter SLTU = 4'b0011;
-parameter XOR  = 4'b0100;
-parameter OR   = 4'b0101;
-parameter AND  = 4'b0110;
-parameter SLL  = 4'b0111;
-parameter SRL  = 4'b1000;
-parameter SRA  = 4'b1001;
+parameter SLL  = 4'b0100;
+parameter SRL  = 4'b0101;
+parameter SRA  = 4'b0110;
+parameter XOR  = 4'b1000;
+parameter OR   = 4'b1001;
+parameter AND  = 4'b1010;
 
 ALU dut(.i_op_a(a), .i_op_b(b), .i_alu_op(op), .o_alu_data(r));
 
@@ -26,18 +26,18 @@ initial begin
   
     #10
     a = -32'd3232453;
-    b = -32'd4995;
+    b = -32'd435995;
     op =  ADD;
 
     #10
-    a = 32'd43750349;
+    a = 32'd343735889;
     b = -32'd392837334;
     op =  SUB;
   
     
     #10
-    a = 32'd12398;
-    b = 32'd45;
+    a = 32'd104566398;
+    b = 32'd4513346;
     op =  XOR;
 
     
@@ -54,17 +54,17 @@ initial begin
 
     #10
     a = 32'd49;
-    b = 32'd5;
+    b = 32'd10;
     op =  SLL;
 
     #10
-    a = 32'd12033;
-    b = 32'd5;
+    a = 32'd112033;
+    b = 32'd12;
     op =  SRL;
 
     #10
-    a = -32'd25002;
-    b = -32'd4000;
+    a = -32'd250032;
+    b = -32'd40010;
     op =  SLTU;
 
     #10
@@ -90,32 +90,32 @@ initial begin
 
     #10
     a = -32'd25002;
-    b = -32'd4000;
+    b = -32'd43000;
     op =  SLT;
 
     #10
     a = -32'd18930002;
-    b = 32'd102847;
+    b = 32'd1028472;
     op =  SLT;
 
      #10
-    a = 32'd75830;
-    b = -32'd2834000;
+    a = 32'd75834440;
+    b = -32'd28334000;
     op =  SLT;
 
     #10
     a = 32'd25002;
-    b = 32'd4000;
+    b = 32'd40055550;
     op =  SLT;
 
     #10
     a = 32'd125002;
-    b = 32'd3404000;
+    b = 32'd340400440;
     op =  SLT;
 
     #10
     a = -32'd445060133;
-    b = 32'd15;
+    b = 32'd27;
     op =  SRA;
 end   
     
