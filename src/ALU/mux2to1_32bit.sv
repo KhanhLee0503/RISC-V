@@ -267,3 +267,16 @@ mux16to1_32bit mux2(
 //Stage_2
 mux2to1_32bit mux3(.In1(stage1_1), .In2(stage1_2), .sel(sel[4]), .out(out));			
 endmodule
+
+////////////////
+//Demux 1 to 2//
+////////////////
+module demux1to2(
+					 input logic in,
+					 input logic sel,
+					 output logic out0,
+					 output logic out1
+					 );
+assign out0 = in&~sel;
+assign out1 = in&sel; 
+endmodule
