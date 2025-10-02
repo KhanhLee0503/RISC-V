@@ -8,11 +8,14 @@ wire signed [31:0] r;
 
 parameter ADD  = 4'b0000;
 parameter SUB  = 4'b0001;
+
 parameter SLT  = 4'b0010;
 parameter SLTU = 4'b0011;
-parameter SLL  = 4'b0100;
-parameter SRL  = 4'b0101;
+
+parameter SRL  = 4'b0100;
+parameter SLL  = 4'b0101;
 parameter SRA  = 4'b0110;
+
 parameter XOR  = 4'b1000;
 parameter OR   = 4'b1001;
 parameter AND  = 4'b1010;
@@ -53,13 +56,13 @@ initial begin
     op =  AND;
 
     #10
-    a = 32'd49;
-    b = 32'd10;
+    a = 32'd449;
+    b = 32'd12;
     op =  SLL;
 
     #10
-    a = 32'd112033;
-    b = 32'd12;
+    a = 32'd11201033;
+    b = 32'd15;
     op =  SRL;
 
     #10
@@ -114,8 +117,8 @@ initial begin
     op =  SLT;
 
     #10
-    a = -32'd445060133;
-    b = 32'd27;
+    a = -32'd34533;
+    b = 32'd7;
     op =  SRA;
 end   
     

@@ -12,19 +12,22 @@ Input: i_alu_op - 4bit
 
 module ALU(i_op_a, i_op_b, i_alu_op, o_alu_data);
 parameter N = 32;
-input [N-1:0] i_op_a;    		//First operand for ALU operations - 32bit
-input [N-1:0] i_op_b;    		//Second operand for ALU operations - 32bit
-input [3:0] i_alu_op;    		//The opcode of the operation - 4bit
-output [N-1:0] o_alu_data;	//Result of the ALU operation - 32bit
+input logic [N-1:0] i_op_a;    		//First operand for ALU operations - 32bit
+input logic [N-1:0] i_op_b;    		//Second operand for ALU operations - 32bit
+input logic [3:0] i_alu_op;    		//The opcode of the operation - 4bit
+output logic [N-1:0] o_alu_data;	//Result of the ALU operation - 32bit
 
 //Operation Opcodes
 parameter ADD  = 4'b0000;
 parameter SUB  = 4'b0001;
+
 parameter SLT  = 4'b0010;
 parameter SLTU = 4'b0011;
-parameter SLL  = 4'b0100;
-parameter SRL  = 4'b0101;
+
+parameter SRL  = 4'b0100;
+parameter SLL  = 4'b0101;
 parameter SRA  = 4'b0110;
+
 parameter XOR  = 4'b1000;
 parameter OR   = 4'b1001;
 parameter AND  = 4'b1010;
@@ -46,14 +49,15 @@ LU LU(
 		);
 
 mux2to1_32bit mux2to1(
-				.In1(AU_out),
-				.In2(LU_out),
-				.sel(i_alu_op[3]),
-				.out(o_alu_data)
-			  );
+						.In1(AU_out),
+						.In2(LU_out),
+						.sel(i_alu_op[3]),
+						.out(o_alu_data)
+					);
 
 endmodule
 
+//----------------------------------Sub_Modules----------------------------------
 
 ///////////////////
 //Arithmetic Unit//
@@ -68,79 +72,49 @@ module AU(
 			output logic [31:0] OUT_AU
 			);
 parameter N = 32;
+
+
 wire carry_o;
-wire [N-1:0] Adder;
-wire [N-1:0] Subtractor;
+wire [N-1:0] Add_Sub;
 wire SetLessThan;
-wire SetLessThan_Unsigned;
-wire [N-1:0] ShiftLeft_logic;
-wire [N-1:0] ShiftRight_logic;
-wire [N-1:0] ShiftRight_arithmetic;	
-					
-adder_32bit adder(
+wire [N-1:0] Shift;
+
+wire addsub_sel;
+mux2to1 mux_adder(.In1(1'b0), .In2(1'b1), .sel(AU_opcode[0]), .out(addsub_sel));
+
+adder_32bit adder_subtractor(
 						.A(In1_AU),
 						.B(In2_AU),
-						.sel(1'b0),
-						.OUT(Adder),
+						.sel(addsub_sel),
+						.OUT(Add_Sub),
 						.CarryOut(carry_o)
 						);
 
-adder_32bit subtractor(
-							 .A(In1_AU),
-							 .B(In2_AU),
-							 .sel(1'b1),
-							 .OUT(Subtractor),
-							 .CarryOut(carry_o)
-							 );
-
+wire cmp_sel;
+mux2to1 mux_compare(.In1(1'b0), .In2(1'b1), .sel(AU_opcode[0]), .out(cmp_sel));						
 comparator_lt set_lt_signed(
 									.A(In1_AU),
 									.B(In2_AU),
-									.sel_signed(1'b0),
+									.sel_signed(cmp_sel),
 									.AltB_o(SetLessThan)
 									);
-
-comparator_lt set_lt_unsigned(
-										.A(In1_AU),
-										.B(In2_AU),
-										.sel_signed(1'b1),
-										.AltB_o(SetLessThan_Unsigned)
-										);
-
-Shift_Logic ShiftLeft(
+									
+Shifter shifter(
 							.In(In1_AU),
-							.ShAm(In2_AU),
-							.sel(1'b0),
-							.result(ShiftLeft_logic)
+							.ShAm(In2_AU[4:0]),
+							.Shift_sel(AU_opcode[1:0]),
+							.OUT(Shift)
 							);
-
-Shift_Logic ShiftRight(
-							.In(In1_AU),
-							.ShAm(In2_AU),
-							.sel(1'b1),
-							.result(ShiftRight_logic)
-							);
-
-ShiftRight_Arithmetic ShiftRightArithmetic(
-														.In(In1_AU),
-														.ShAm(In2_AU),
-														.OUT(ShiftRight_arithmetic)
-														);
 														
-mux8to1_32bit mux8to1(
-						.In1(Adder),
-						.In2(Subtractor),
-						.In3({{31'b0},SetLessThan}),
-						.In4({{31'b0},SetLessThan_Unsigned}),
-						.In5(ShiftLeft_logic),
-						.In6(ShiftRight_logic),
-						.In7(ShiftRight_arithmetic),
-						.In8(32'b0),
-						.sel(AU_opcode),
+mux4to1_32bit mux4to1(
+						.In1(Add_Sub),
+						.In2({{31'b0},SetLessThan}),
+						.In3(Shift),
+						.In4(Shift),
+						.sel(AU_opcode[2:1]),
 						.out(OUT_AU)
 						);
 endmodule
-
 
 
 //////////////
