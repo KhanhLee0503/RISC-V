@@ -302,25 +302,3 @@ generate
 	end
 endgenerate
 endmodule
-
-
-////////////////////
-//MUX 2 to 1 16bit//
-////////////////////
-module mux2to1_16bit(
-							input logic [15:0]In1,
-							input logic [15:0]In2,
-							input logic sel,
-							output logic [15:0] out
-							);			
-genvar i;
-generate
-	for(i=0; i<16; i=i+1) begin: mux2to1_gen
-		mux2to1 mux2to1(
-							 .In1(In1[i]),
-							 .In2(In2[i]),
-							 .sel(sel),
-							 .out(out[i]));
-	end
-endgenerate
-endmodule
