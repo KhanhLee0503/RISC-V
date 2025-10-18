@@ -11,6 +11,10 @@ module DataMem(
 // 512 words x 32 bits = 2 KB of memory
 reg [31:0] mem_word [0:511];
 
+initial begin
+	$readmemh("C:/SystemVerilog/InstrMem/program.hex", mem_word);
+end
+
 logic [8:0] word_addr;
 assign word_addr = i_addr[10:2];
 
