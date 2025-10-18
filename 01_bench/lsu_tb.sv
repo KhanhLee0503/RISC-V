@@ -15,14 +15,26 @@ logic [31:0] out_lcd;
 logic [31:0] out_hex03;
 logic [31:0] out_hex47;
 
-parameter MEM_DATA     = 32'h0000_FF75;
-parameter MEM_DATA_OUT = 32'hFFFF_FF75;
-parameter LEDR_DATA    = 32'h1111_1111;
-parameter LEDG_DATA    = 32'h2222_2222;
-parameter LCD_DATA     = 32'h3333_3333;
-parameter HEX03_DATA   = 32'h4444_4444;
-parameter HEX47_DATA   = 32'h5555_5555;
-parameter SWITCH_DATA  = 32'h6666_6666; 
+parameter MEM_DATA        = 32'h1234_5678;
+parameter MEM_DATA_OUT    = 32'h0000_0056;
+
+parameter LEDR_DATA       = 32'h1111_1111;
+parameter LEDR_DATA_OUT   = 32'h0000_1111;
+
+parameter LEDG_DATA       = 32'hBBBB_BBBB;
+parameter LEDG_DATA_OUT   = 32'hFFFF_BBBB;
+
+parameter LCD_DATA        = 32'h3333_3333;
+parameter LCD_DATA_OUT    = 32'h3333_3333;
+
+parameter HEX03_DATA      = 32'hAAAA_AAAA;
+parameter HEX03_DATA_OUT  = 32'hFFFF_FFAA;
+
+parameter HEX47_DATA      = 32'h5555_5555;
+parameter HEX47_DATA_OUT  = 32'h0000_0055;
+
+parameter SWITCH_DATA     = 32'h8888_8888;
+parameter SWITCH_DATA_OUT = 32'hFFFF_8888; 
 
 lsu DUT (
         .i_clk(clk),
@@ -67,7 +79,6 @@ initial begin
     addr = 32'h1000_40FF;
     data_in = LCD_DATA;
     load_type = 4'hF;
-    load_signed = 1'b0;
     wren = 1'b1;
     @(posedge clk);
     #1 
@@ -75,6 +86,7 @@ initial begin
     // Write LEDR
     addr = 32'h1000_0053;
     data_in = LEDR_DATA;
+    load_type = 4'hF;
     wren = 1'b1;
     @(posedge clk);
     #1 
@@ -82,22 +94,24 @@ initial begin
     // Write LEDG
     addr = 32'h1000_1103;
     data_in = LEDG_DATA;
+    load_type = 4'h3;
+    load_signed = 1'b1;
     wren = 1'b1;
     @(posedge clk);
     #1 
 
     // Write Data Memory
-    addr = 32'h0000_0012;
+    addr = 32'h0000_0022;
     data_in = MEM_DATA;
     wren = 1'b1;
-    load_type = 4'hf;
-    load_signed = 1'b0;
+    load_type = 4'h3;
     @(posedge clk);
     #1 
 
     // Write HEX03 
     addr = 32'h1000_2000;
     data_in = HEX03_DATA;
+    load_type = 4'hF;
     wren = 1'b1;
     @(posedge clk);
     #1 
@@ -105,6 +119,7 @@ initial begin
     // Write HEX47
     addr = 32'h1000_3000;
     data_in = HEX47_DATA;
+    load_type = 4'hF;
     wren = 1'b1;
     @(posedge clk);
     #1 
@@ -112,6 +127,7 @@ initial begin
     // Write SWITCH
     addr = 32'h1001_00FF;
     in_sw = SWITCH_DATA;
+    load_type = 4'hF;
     wren = 1'b1;
     @(posedge clk);
     #1 
@@ -123,23 +139,67 @@ initial begin
 
     // LEDG
     addr = 32'h1000_1103;
+    load_type = 4'h3;
+    load_signed = 1'b1;
     #1;
-    if (out_ledg == LEDG_DATA)
+    if (out_ledg == LEDG_DATA_OUT)
         $display("LEDG PASS: %h", out_ledg);
     else
         $display("LEDG FAIL: %h", out_ledg);
 
     // LCD
     addr = 32'h1000_40FF;
+    load_type = 4'hF;
+    load_signed = 1'b1;
     #1;
-    if (out_lcd == LCD_DATA)
+    if (out_lcd == LCD_DATA_OUT)
         $display("LCD PASS: %h", out_lcd);
     else
         $display("LCD FAIL: %h", out_lcd);
 
-    // Data Memory
-    addr = 32'h0000_0012;
+    // LEDR
+    addr = 32'h1000_0053;
     load_type = 4'h3;
+    load_signed = 1'b0;
+    #1;
+    if (out_ledr == LEDR_DATA_OUT)
+        $display("LEDR PASS: %h", out_ledr);
+    else
+        $display("LEDR FAIL: %h", out_ledr);
+
+    // HEX03
+    addr = 32'h1000_2000;
+    load_type = 4'h1;
+    load_signed = 1'b1;
+    #1;
+    if (out_hex03 == HEX03_DATA_OUT)
+        $display("HEX03 PASS: %h", out_hex03);
+    else
+        $display("HEX03 FAIL: %h", out_hex03);
+
+    // HEX47
+    addr = 32'h1000_3000;
+    load_type = 4'h1;
+    load_signed = 1'b1;
+    #1;
+    if (out_hex47 == HEX47_DATA_OUT)
+        $display("HEX47 PASS: %h", out_hex47);
+    else
+        $display("HEX47 FAIL: %h", out_hex47);
+
+    // SWITCH
+    addr = 32'h1001_00FF;
+    load_type = 4'h3;
+    load_signed = 1'b1;
+    #1;
+    if (out_data == SWITCH_DATA_OUT)
+        $display("SWITCH PASS: %h", out_data);
+    else
+        $display("SWITCH FAIL: %h", out_data);
+
+        // Data Memory
+    addr = 32'h0000_0023;
+    load_type = 4'h1;
     load_signed = 1'b1;
     #1;
     if (out_data == MEM_DATA_OUT)
@@ -147,39 +207,7 @@ initial begin
     else
         $display("DataMem FAIL: %h", out_data);
 
-    // LEDR
-    addr = 32'h1000_0053;
-    #1;
-    if (out_ledr == LEDR_DATA)
-        $display("LEDR PASS: %h", out_ledr);
-    else
-        $display("LEDR FAIL: %h", out_ledr);
-
-    // HEX03
-    addr = 32'h1000_2000;
-    #1;
-    if (out_hex03 == HEX03_DATA)
-        $display("HEX03 PASS: %h", out_hex03);
-    else
-        $display("HEX03 FAIL: %h", out_hex03);
-
-    // HEX47
-    addr = 32'h1000_3000;
-    #1;
-    if (out_hex47 == HEX47_DATA)
-        $display("HEX47 PASS: %h", out_hex47);
-    else
-        $display("HEX47 FAIL: %h", out_hex47);
-
-    // SWITCH
-    addr = 32'h1001_00FF;
-    #1;
-    if (out_data == SWITCH_DATA)
-        $display("SWITCH PASS: %h", out_data);
-    else
-        $display("SWITCH FAIL: %h", out_data);
-
-    #10 $finish;
+     #10 $finish;
 end
 
 endmodule
