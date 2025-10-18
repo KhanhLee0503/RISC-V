@@ -14,6 +14,8 @@ reg [31:0] mem_word [0:511];
 logic [8:0] word_addr;
 assign word_addr = i_addr[10:2];
 
+logic [1:0] byte_offset;
+assign byte_offset = i_addr[1:0];
 // --- Write Logic (Synchronous) ---
 always_ff @(posedge i_clk or posedge i_reset) begin
     if (i_reset) begin
@@ -68,7 +70,17 @@ end
 // --- Read Logic (Combinational) ---
 always_comb begin
     if(!i_wren) begin
-        o_rdata = mem_word[word_addr];
+        if (i_bmask == 4'b1111)
+            o_rdata = mem_word[word_addr];
+        
+        if ((i_bmask == 4'b0011)&&((byte_offset == 2'b00)||(byte_offset == 2'b10)))
+            o_rdata = mem_word[word_addr] >> (byte_offset*8);
+        
+        else if (i_bmask == 4'b0001)
+            o_rdata = mem_word[word_addr] >> (byte_offset*8);
+        else 
+            o_rdata = mem_word[word_addr];
+        
     end
     else begin
         o_rdata = 32'b0;

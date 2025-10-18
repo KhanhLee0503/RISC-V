@@ -17,12 +17,12 @@ logic [31:0] out_hex47;
 
 parameter MEM_DATA     = 32'h0000_FF75;
 parameter MEM_DATA_OUT = 32'hFFFF_FF75;
-parameter LEDR_DATA   = 32'h1111_1111;
-parameter LEDG_DATA   = 32'h2222_2222;
-parameter LCD_DATA    = 32'h3333_3333;
-parameter HEX03_DATA  = 32'h4444_4444;
-parameter HEX47_DATA  = 32'h5555_5555;
-parameter SWITCH_DATA = 32'h6666_6666; 
+parameter LEDR_DATA    = 32'h1111_1111;
+parameter LEDG_DATA    = 32'h2222_2222;
+parameter LCD_DATA     = 32'h3333_3333;
+parameter HEX03_DATA   = 32'h4444_4444;
+parameter HEX47_DATA   = 32'h5555_5555;
+parameter SWITCH_DATA  = 32'h6666_6666; 
 
 lsu DUT (
         .i_clk(clk),
