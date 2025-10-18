@@ -6,7 +6,7 @@ module lsu(
 				
 				input logic [31:0] i_lsu_addr,
 				input logic [31:0] i_st_data,
-				input logic i_lsu_wren,				//0 is Writing, 1 is Reading
+				input logic i_lsu_wren,				//1 is Writing, 0 is Reading
 				input logic [31:0] i_io_sw,
 				
 				output logic [31:0] o_ld_data,
@@ -17,7 +17,18 @@ module lsu(
 				output logic [31:0] o_io_hex03,
 				output logic [31:0] o_io_hex47
 			  );
-			  
+
+//Wires for selecting Load Type			  
+logic word_sel;
+logic halfword_sel;
+logic byte_sel;
+
+assign word_sel	    = i_load_type[3]&i_load_type[2]&i_load_type[1]&i_load_type[0];
+assign halfword_sel = ~i_load_type[3]&~i_load_type[2]&i_load_type[1]&i_load_type[0];
+assign byte_sel 	= ~i_load_type[3]&~i_load_type[2]&~i_load_type[1]&i_load_type[0];
+
+
+//Wires for selecting enable pin
 logic data_wren_in;
 logic lcd_wren_in;
 logic ledr_wren_in;
@@ -26,6 +37,7 @@ logic hex03_wren_in;
 logic hex47_wren_in;
 logic switch_wren_in;
 			  
+//Wires for data output
 logic [31:0] switch_reg_out;
 logic [31:0] memory_out;
 logic [31:0] memory_out_signed;
@@ -38,6 +50,65 @@ logic [31:0] o_io_hex47_sub;
 logic [31:0] memory_out_sub;
 logic [31:0] switch_reg_out_sub;
 
+logic [31:0] o_io_ledg_out;
+logic [31:0] o_io_ledr_out;
+logic [31:0] o_io_lcd_out;
+logic [31:0] o_io_hex03_out;
+logic [31:0] o_io_hex47_out;
+logic [31:0] memory_out_out;
+logic [31:0] switch_reg_out_subout;
+
+logic [31:0] data_in;
+logic [7:0] data_in_word_B1;
+logic [7:0] data_in_half_B1;
+logic [7:0] data_in_byte_B0;
+logic [7:0] data_in_half_B0;
+logic [7:0] data_in_word_B0;
+
+//MUXes for handling Load Byte, Load Word
+assign data_in[31:24] = i_st_data[31:24];
+assign data_in[23:16] = i_st_data[23:16];
+
+mux2to1_8bit mux_B1_word(
+					.In1(8'b0),
+					.In2(i_st_data[15:8]),
+					.sel(word_sel),
+					.out(data_in_word_B1)
+					);
+
+
+mux2to1_8bit mux_B0_word(
+					.In1(8'b0),
+					.In2(i_st_data[7:0]),
+					.sel(word_sel),
+					.out(data_in_word_B0)
+					);					
+
+
+mux2to1_8bit mux_B1_half(
+					.In1(8'b0),
+					.In2(i_st_data[15:8]),
+					.sel(halfword_sel),
+					.out(data_in_half_B1)
+					);					
+
+mux2to1_8bit mux_B0_half(
+					.In1(8'b0),
+					.In2(i_st_data[7:0]),
+					.sel(halfword_sel),
+					.out(data_in_half_B0)
+					);					
+
+mux2to1_8bit mux_B0_byte(
+					.In1(8'b0),
+					.In2(i_st_data[7:0]),
+					.sel(byte_sel),
+					.out(data_in_byte_B0)
+					);		
+
+assign data_in[7:0] = data_in_byte_B0|data_in_half_B0|data_in_word_B0;
+assign data_in[15:8] = data_in_half_B1|data_in_word_B1;
+
 lsu_decoder lsu_decoder(
 						.i_addr(i_lsu_addr),
 						.lcd_wren(lcd_wren_in),
@@ -49,54 +120,81 @@ lsu_decoder lsu_decoder(
 						.segment47_wren(hex47_wren_in)		
 						);
 
-register_32bit LEDR_reg(
-								.data_in(i_st_data),
-								.load(ledr_wren_in & i_lsu_wren),
-								.clear(i_reset),
-								.clk(i_clk),
-								.OUT(o_io_ledr_sub)
-								);
+register_LSU_32bit LEDR_reg(
+						.data_in(data_in),
+						.load(ledr_wren_in & i_lsu_wren),
+						.clear(i_reset),
+						.word(word_sel),
+						.half(halfword_sel),
+						.clk(i_clk),
+						.OUT(o_io_ledr_sub)
+						);
 
 mux2to1_32bit muxout_ledr(
 						 .In1(o_io_ledr_sub),
 						 .In2(32'b0),
 						 .sel(i_lsu_wren),
-						 .out(o_io_ledr)
-						);	
+						 .out(o_io_ledr_out)
+						 );	
+loadtype load_ledr(
+				.data_in(o_io_ledr_out),
+				.load_type(i_load_type),
+				.load_signed(i_load_signed),
+				.data_out(o_io_ledr)
+				 );
 
-register_32bit LEDG_reg(
-								.data_in(i_st_data),
-								.load(ledg_wren_in & i_lsu_wren),
-								.clear(i_reset),
-								.clk(i_clk),
-								.OUT(o_io_ledg_sub)
-								);
+
+register_LSU_32bit LEDG_reg(
+						.data_in(data_in),
+						.load(ledg_wren_in & i_lsu_wren),
+						.clear(i_reset),
+						.word(word_sel),
+						.half(halfword_sel),
+						.clk(i_clk),
+						.OUT(o_io_ledg_sub)
+						);
 								
 mux2to1_32bit muxout_ledg(
 						 .In1(o_io_ledg_sub),
 						 .In2(32'b0),
 						 .sel(i_lsu_wren),
-						 .out(o_io_ledg)
+						 .out(o_io_ledg_out)
 						);	
 
-register_32bit LCD_reg(
-								.data_in(i_st_data),
-								.load(lcd_wren_in & i_lsu_wren),
-								.clear(i_reset),
-								.clk(i_clk),
-								.OUT(o_io_lcd_sub)
-								);
+loadtype load_ledg(
+					.data_in(o_io_ledg_out),
+					.load_type(i_load_type),
+					.load_signed(i_load_signed),
+					.data_out(o_io_ledg)
+					);
+
+register_LSU_32bit LCD_reg(
+					.data_in(data_in),
+					.load(lcd_wren_in & i_lsu_wren),
+					.clear(i_reset),
+					.word(word_sel),
+					.half(halfword_sel),
+					.clk(i_clk),
+					.OUT(o_io_lcd_sub)
+					);
 
 mux2to1_32bit muxout_lcd(
 						 .In1(o_io_lcd_sub),
 						 .In2(32'b0),
 						 .sel(i_lsu_wren),
-						 .out(o_io_lcd)
+						 .out(o_io_lcd_out)
 						);								
+
+loadtype load_lcd(
+					.data_in(o_io_lcd_out),
+					.load_type(i_load_type),
+					.load_signed(i_load_signed),
+					.data_out(o_io_lcd)
+					);
 
 register_32bit Switch_reg(
 								.data_in(i_io_sw),
-								.load(switch_wren_in & i_lsu_wren),
+								.load(1'b1),
 								.clear(i_reset),
 								.clk(i_clk),
 								.OUT(switch_reg_out_sub)
@@ -106,13 +204,22 @@ mux2to1_32bit muxout_switch(
 						 .In1(switch_reg_out_sub),
 						 .In2(32'b0),
 						 .sel(i_lsu_wren),
-						 .out(switch_reg_out)
+						 .out(switch_reg_out_subout)
 						);
 
-register_32bit Hex03_reg(
-								.data_in(i_st_data),
+loadtype load_switch(
+					.data_in(switch_reg_out_subout),
+					.load_type(i_load_type),
+					.load_signed(i_load_signed),
+					.data_out(switch_reg_out)
+					);
+
+register_LSU_32bit Hex03_reg(
+								.data_in(data_in),
 								.load(hex03_wren_in & i_lsu_wren),
 								.clear(i_reset),
+								.word(word_sel),
+								.half(halfword_sel),		
 								.clk(i_clk),
 								.OUT(o_io_hex03_sub)
 								);								
@@ -121,23 +228,39 @@ mux2to1_32bit muxout_hex03(
 						 .In1(o_io_hex03_sub),
 						 .In2(32'b0),
 						 .sel(i_lsu_wren),
-						 .out(o_io_hex03)
+						 .out(o_io_hex03_out)
 						);
 
-register_32bit Hex47_reg(
-								.data_in(i_st_data),
-								.load(hex47_wren_in & i_lsu_wren),
-								.clear(i_reset),
-								.clk(i_clk),
-								.OUT(o_io_hex47_sub)
-								);	
+loadtype load_hex03(
+					.data_in(o_io_hex03_out),
+					.load_type(i_load_type),
+					.load_signed(i_load_signed),
+					.data_out(o_io_hex03)
+					);
+
+register_LSU_32bit Hex47_reg(
+							.data_in(data_in),
+							.load(hex47_wren_in & i_lsu_wren),
+							.clear(i_reset),
+							.word(word_sel),
+							.half(halfword_sel),
+							.clk(i_clk),
+							.OUT(o_io_hex47_sub)
+							);	
 
 mux2to1_32bit muxout_hex47(
 						 .In1(o_io_hex47_sub),
 						 .In2(32'b0),
 						 .sel(i_lsu_wren),
-						 .out(o_io_hex47)
+						 .out(o_io_hex47_out)
 						);
+
+loadtype load_hex47(
+					.data_in(o_io_hex47_out),
+					.load_type(i_load_type),
+					.load_signed(i_load_signed),
+					.data_out(o_io_hex47)
+					);
 
 DataMem DataMem(
 					 .i_clk(i_clk),
@@ -336,19 +459,19 @@ assign load_half = ~load_type[3]&~load_type[2]&load_type[1]&load_type[0];
 assign load_word = load_type[3]&load_type[2]&load_type[1]&load_type[0];	
 
 mux2to1_24bit byte_signed(
-							.In1(24'b0),
-							.In2({24{data_in[7]}}),
-							.sel(load_signed),		//0 is unsigned, 1 is signed
-							.out(byte_sign_extend)
-							);		
+						.In1(24'b0),
+						.In2({24{data_in[7]}}),
+						.sel(load_signed),		//0 is unsigned, 1 is signed
+						.out(byte_sign_extend)
+						);		
 
 
 mux2to1_16bit half_signed(
-							.In1(16'b0),
-							.In2({16{data_in[15]}}),
-							.sel(load_signed),		//0 is unsigned, 1 is signed
-							.out(half_sign_extend)
-							);	
+						.In1(16'b0),
+						.In2({16{data_in[15]}}),
+						.sel(load_signed),		//0 is unsigned, 1 is signed
+						.out(half_sign_extend)
+						);	
 						
 mux8to1_32bit sel_out(
 					.In1(dummy_1),

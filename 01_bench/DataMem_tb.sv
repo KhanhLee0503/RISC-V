@@ -68,7 +68,7 @@ module DataMem_tb;
         i_wren = 0;
         @(negedge i_clk);
         // Byte 1 (78) thay thế Byte 1 (BE) cũ. Word mới: DEAD78EF
-        if (o_rdata == 32'hDEAD78EF) 
+        if (o_rdata == 32'h00DEAD78) 
             $display("Time %0t: Byte Write Correct!!. Data Read: %h", $time, o_rdata);
         else
             $fatal(1, "Time %0t: Byte Write FAIL!!. Data Read: %h, expected: DEAD78EF", $time, o_rdata);
@@ -77,7 +77,7 @@ module DataMem_tb;
         // Ghi Half-Word dưới (Bytes 0, 1) vào Word Index 4.
         i_wren = 1;
         i_bmask = 4'b0011;
-        i_addr = 11'h010;  // Địa chỉ 0x10 (Word Index 4, Byte Offset 00)
+        i_addr = 11'h012;  // Địa chỉ 0x12 (Word Index 4, Byte Offset 10)
         i_wdata = 32'h0000_ABCD; // Chỉ dùng ABCD
         @(posedge i_clk);
         
@@ -102,7 +102,7 @@ module DataMem_tb;
         i_wren = 0;
         @(negedge i_clk);
         // Word phải giữ nguyên 0000ABCD vì lỗi căn chỉnh.
-        if (o_rdata == 32'h0000ABCD) 
+        if (o_rdata == 32'hABCD0000) 
             $display("Time %0t: Alignment Check OK (Write Disable). Data Read: %h", $time, o_rdata);
         else
             $fatal(1, "Time %0t: Alignment Check FAIL. Data Read: %h, expected: 0000ABCD", $time, o_rdata);

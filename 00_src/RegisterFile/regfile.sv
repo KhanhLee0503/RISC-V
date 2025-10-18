@@ -205,3 +205,82 @@ always_ff@(posedge clk or posedge RST) begin
 end
 endmodule 
 
+
+///////////////////////////
+//REGISTER for LSU- 32bit//
+///////////////////////////
+module register_LSU_32bit(
+							input logic [31:0] data_in,
+							input logic load,
+							input logic word,
+							input logic half,
+							input logic clear,
+							input logic clk,
+							output reg [31:0] OUT
+							);
+
+logic load_byte1;
+assign load_byte1 = (word&load)|(half&load);
+
+register_8bit byte3(
+					.data_in(data_in[31:24]),
+					.load(word&load),
+					.clear(clear),
+					.clk(clk),
+					.OUT(OUT[31:24])
+					);
+
+
+register_8bit byte2(
+					.data_in(data_in[23:16]),
+					.load(word&load),
+					.clear(clear),
+					.clk(clk),
+					.OUT(OUT[23:16])
+					);
+
+
+register_8bit byte1(
+					.data_in(data_in[15:8]),
+					.load(load_byte1),
+					.clear(clear),
+					.clk(clk),
+					.OUT(OUT[15:8])
+					);
+
+register_8bit byte0(
+					.data_in(data_in[7:0]),
+					.load(load),
+					.clear(clear),
+					.clk(clk),
+					.OUT(OUT[7:0])
+					);						
+endmodule
+
+
+
+////////////////////
+//REGISTER - 8bit///
+////////////////////
+module register_8bit(
+							input logic [7:0] data_in,
+							input logic load,
+							input logic clear,
+							input logic clk,
+							output reg [7:0] OUT
+							);
+genvar i;
+generate
+	for(i=0; i<8; i=i+1) begin : FlipFlop
+			D_FF_Load D_FlipFlop(
+										.Data(data_in[i]),
+										.clk(clk),
+										.RST(clear),
+										.Load(load),
+										.Q(OUT[i])
+										);							
+	end
+endgenerate
+endmodule
+
+

@@ -324,3 +324,25 @@ generate
 	end
 endgenerate
 endmodule
+
+
+////////////////////
+//MUX 2 to 1 8bit//
+////////////////////
+module mux2to1_8bit(
+							input logic [7:0]In1,
+							input logic [7:0]In2,
+							input logic sel,
+							output logic [7:0] out
+							);			
+genvar i;
+generate
+	for(i=0; i<8; i=i+1) begin: mux2to1_gen
+		mux2to1 mux2to1(
+							 .In1(In1[i]),
+							 .In2(In2[i]),
+							 .sel(sel),
+							 .out(out[i]));
+	end
+endgenerate
+endmodule
