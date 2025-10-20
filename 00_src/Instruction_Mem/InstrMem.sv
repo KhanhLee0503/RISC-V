@@ -6,7 +6,7 @@ module InstrMem(
 (* ramstyle = "M9K" *) logic [31:0] mem_word [0:511];
 
 initial begin
-	$readmemh("C:/SystemVerilog/InstrMem/program.hex", mem_word);
+	$readmemh("C:/SystemVerilog/Milestone2/RISC-V/02_test/dump/instr.hex", mem_word);
 end
 
 always_comb begin

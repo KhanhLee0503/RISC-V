@@ -1,6 +1,5 @@
 module DataMem(
     input logic i_clk,
-    input logic i_reset,
     input logic [10:0] i_addr,
     input logic [31:0] i_wdata,
     input logic [3:0] i_bmask, // 4 bits mask for 4 bytes
@@ -12,7 +11,7 @@ module DataMem(
 reg [31:0] mem_word [0:511];
 
 initial begin
-	$readmemh("C:/SystemVerilog/InstrMem/program.hex", mem_word);
+	$readmemh("C:/SystemVerilog/Milestone2/RISC-V/02_test/dump/reset.hex", mem_word);
 end
 
 logic [8:0] word_addr;
@@ -21,15 +20,8 @@ assign word_addr = i_addr[10:2];
 logic [1:0] byte_offset;
 assign byte_offset = i_addr[1:0];
 // --- Write Logic (Synchronous) ---
-always_ff @(posedge i_clk or posedge i_reset) begin
-    if (i_reset) begin
-        // Correct Full Memory Reset
-        for(integer i=0; i<512; i=i+1) begin
-            mem_word[i] <= 32'b0;
-        end
-    end
-    
-    else if (i_wren) begin
+always_ff @(posedge i_clk) begin
+ if (i_wren) begin
 			//-------------Write Word------------------------
         if (i_bmask == 4'b1111) begin
             mem_word[word_addr] <= i_wdata;
