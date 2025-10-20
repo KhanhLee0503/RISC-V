@@ -14,7 +14,7 @@ initial begin
 	$readmemh("C:/SystemVerilog/Milestone2/RISC-V/02_test/dump/reset.hex", mem_word);
 end
 
-logic [7:0] word_addr;
+logic [8:0] word_addr;
 assign word_addr = i_addr[10:2];
 
 logic [1:0] byte_offset;
