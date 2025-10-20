@@ -264,7 +264,6 @@ loadtype load_hex47(
 
 DataMem DataMem(
 					 .i_clk(i_clk),
-					 .i_reset(i_reset),
 					 .i_addr(i_lsu_addr[10:0]),
 					 .i_wdata(i_st_data),
 					 .i_bmask(i_load_type), 

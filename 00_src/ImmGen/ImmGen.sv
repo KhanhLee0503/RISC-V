@@ -3,7 +3,7 @@
 ////////////////////////
 module ImmGen(
 				input logic [24:0] Instruction,
-				input logic [3:0] ImmSel,			//ImmSel = 00_00 : I_Format
+				input logic [3:0] ImmSel,					//ImmSel = 00_00 : I_Format
 															//ImmSel = 00_01 : S_Format
 															//ImmSel = 00_10 : B_Format
 															//ImmSel = 01_xx : J_Format
