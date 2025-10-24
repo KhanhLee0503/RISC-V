@@ -1,0 +1,117 @@
+xrun(64): 24.09-s005: (c) Copyright 1995-2025 Cadence Design Systems, Inc.
+TOOL:	xrun(64)	24.09-s005: Started on Oct 24, 2025 at 08:17:18 +07
+xrun
+	-access +rwc
+	-f ./flist
+		-sv
+		-timescale 1ns/100ps
+		./../01_bench/tbench.sv
+		./../01_bench/driver.sv
+		./../01_bench/tlib.svh
+		./../01_bench/scoreboard.sv
+		./../00_src/mux2to1_32bit.sv
+		./../00_src/Shifter.sv
+		./../00_src/adder_32bit.sv
+		./../00_src/comparator_lt.sv
+		./../00_src/Logic_Unit.sv
+		./../00_src/BRC.sv
+		./../00_src/ALU.sv
+		./../00_src/alu_control.sv
+		./../00_src/regfile.sv
+		./../00_src/DataMem.sv
+		./../00_src/ImmGen.sv
+		./../00_src/InstrMem.sv
+		./../00_src/lsu.sv
+		./../00_src/control_unit.sv
+		./../00_src/datapath.sv
+		./../00_src/single_cycle.sv
+Recompiling... reason: file '../00_src/DataMem.sv' is newer than expected.
+	expected: Fri Oct 24 08:14:05 2025
+	actual:   Fri Oct 24 08:17:13 2025
+file: ./../00_src/DataMem.sv
+	module worklib.DataMem:sv
+		errors: 0, warnings: 0
+file: ./../00_src/datapath.sv
+	module worklib.datapath:sv
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Top level design units:
+		$unit_0x5ee3157c
+		tbench
+		demux1to2
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.DataMem:sv <0x359ca3e8>
+			streams:  13, words: 12135
+		worklib.datapath:sv <0x40503645>
+			streams:  39, words: 14293
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                    Instances  Unique
+		Modules:               10,131      60
+		Registers:             10,589     231
+		Scalar wires:          27,774       -
+		Expanded wires:        11,603     416
+		Vectored wires:           435       -
+		Always blocks:          1,257       9
+		Initial blocks:             8       8
+		Cont. assignments:      7,648      60
+		Pseudo assignments:    10,251       -
+		Compilation units:          1       1
+		Process Clocks:         1,250       3
+		Simulation timescale:   100ps
+	Writing initial simulation snapshot: worklib.tbench:sv
+Loading snapshot worklib.tbench:sv .................... Done
+xcelium> source /home/yellow/ktmt_l01_l02_6/tools/eda/cadence/XCELIUM2409/tools/xcelium/files/xmsimrc
+xcelium> run
+
+SINGLE CYCLE - ISA test
+
+add......PASS
+addi.....PASS
+sub......PASS
+and......PASS
+andi.....PASS
+or.......PASS
+ori......PASS
+xor......PASS
+xori.....PASS
+slt......PASS
+slti.....PASS
+sltu.....PASS
+sltiu....PASS
+sll......PASS
+slli.....PASS
+srl......PASS
+srli.....PASS
+sra......PASS
+srai.....PASS
+lw.......PASS
+lh.......PASS
+lhu......PASS
+lb.......PASS
+lbu......PASS
+sw.......PASS
+sh.......PASS
+sb.......PASS
+auipc....PASS
+lui......PASS
+beq......PASS
+bne......PASS
+blt......PASS
+bltu.....PASS
+bge......PASS
+bgeu.....PASS
+jal......PASS
+jalr.....PASS
+malgn....PASS
+iosw.....PASS
+
+END of ISA test
+
+Simulation complete via $finish(1) at time 19310 NS + 1
+../01_bench/scoreboard.sv:32       $finish;
+xcelium> exit
+TOOL:	xrun(64)	24.09-s005: Exiting on Oct 24, 2025 at 08:17:24 +07  (total: 00:00:06)

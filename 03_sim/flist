@@ -1,0 +1,24 @@
+-sv
+-timescale 1ns/100ps
+# TESTBENCH FILES
+./../01_bench/tbench.sv
+./../01_bench/driver.sv
+./../01_bench/tlib.svh
+./../01_bench/scoreboard.sv
+# SOURCE CODE FILES
+./../00_src/mux2to1_32bit.sv
+./../00_src/Shifter.sv
+./../00_src/adder_32bit.sv
+./../00_src/comparator_lt.sv
+./../00_src/Logic_Unit.sv
+./../00_src/BRC.sv
+./../00_src/ALU.sv
+./../00_src/alu_control.sv
+./../00_src/regfile.sv
+./../00_src/DataMem.sv
+./../00_src/ImmGen.sv
+./../00_src/InstrMem.sv
+./../00_src/lsu.sv
+./../00_src/control_unit.sv
+./../00_src/datapath.sv
+./../00_src/single_cycle.sv
