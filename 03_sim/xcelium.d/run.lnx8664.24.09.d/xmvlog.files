@@ -1,0 +1,24 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/01_bench/tbench.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/01_bench/driver.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/01_bench/tlib.svh
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/01_bench/scoreboard.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/mux2to1_32bit.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/Shifter.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/adder_32bit.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/comparator_lt.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/Logic_Unit.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/BRC.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/ALU.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/alu_control.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/regfile.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/DataMem.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/ImmGen.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/InstrMem.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/lsu.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/control_unit.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/datapath.sv
+/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/00_src/single_cycle.sv

@@ -1,0 +1,213 @@
+module datapath(
+					input logic i_clk,
+					input logic i_reset,
+					input logic PCSel,
+				
+					input logic [3:0] ImmSel,	//ImmSel = 00_00 : I_Format
+														//ImmSel = 00_01 : S_Format
+														//ImmSel = 00_10 : B_Format
+														//ImmSel = 01_xx : J_Format
+														//ImmSel = 10_xx : U_Format
+					input logic RegWen,
+					
+					input logic BrUn,
+					
+					
+					input logic BSel,			//If 0 select RS2, else select BRC
+					input logic ASel,			//If 0 select RS1, else select BRC
+					input logic [1:0] ALU_op,
+					
+					input logic [3:0] LoadType,   // 0001: load byte | 0011: load halfword | 1111: load word
+					input logic LoadSigned,			//if 0 is unsigned, 1 is signed		
+					input logic MemRW,				//1 is Writing, 0 is Reading
+					
+					input logic [1:0] WBSel,				//0 is Load Data, 1 is ALU Out, 2 is PC + 4
+					input logic LUI_Sel,
+					
+				
+					input logic [31:0] i_io_sw,
+					output logic [31:0] o_io_ledr,
+					output logic [31:0] o_io_ledg,
+					output logic [31:0] o_io_lcd,
+					output logic [31:0] o_io_hex03,
+					output logic [31:0] o_io_hex47,
+					
+					output logic [31:0] o_pc_debug,
+					//output logic o_insn_vld,
+					output logic [31:0] instr,
+					output logic BrLT,
+					output logic BrEQ
+					);
+
+		
+logic [31:0] PCSel_out;		
+
+logic [31:0] PC_out;
+assign o_pc_debug = PC_out;
+logic [31:0] PC_plus4;
+
+logic [31:0] Instruction;
+assign instr = Instruction;
+
+logic [31:0] Immediate;
+
+logic [31:0] RS1_Out;
+logic [31:0] RS2_Out;
+
+logic [31:0] A_Out;
+logic [31:0] A_Out_Sub;
+logic [31:0] B_Out;
+
+logic [3:0] ALU_Opcode;
+logic [31:0] ALU_Out;
+
+logic [31:0] o_ld_data;
+logic [31:0] Data_Writeback;
+//assign data_writeback = Data_Writeback;
+
+
+logic dummy;
+
+mux2to1_32bit PC_Select(
+			.In1(PC_plus4),
+			.In2(ALU_Out),
+			.sel(PCSel),
+			.out(PCSel_out)
+			);	
+				
+					
+register_32bit Program_Counter(
+				.data_in(PCSel_out),
+				.load(1'b1),
+				.clear(i_reset),
+				.clk(i_clk),
+				.OUT(PC_out)
+				);
+										
+							
+adder_32bit ADDER_PC(
+			.A(PC_out),
+			.B(32'h0000_0004),
+			.sel(1'b0),
+			.OUT(PC_plus4),
+			.CarryOut(dummy)
+			);
+					
+					
+InstrMem Instruction_Memory( 
+			   .i_addr(PC_out[12:0]),
+			   .o_rdata(Instruction)
+			   );					
+	
+
+ImmGen ImmediateGeneration(
+			  .Instruction(Instruction[31:7]),
+			  .ImmSel(ImmSel),			 
+			  .OutImm(Immediate)
+			  );	
+									
+
+regfile RegisterFile(
+			.i_clk(i_clk),
+			.i_reset(i_reset),
+			.i_rs1_addr(Instruction[19:15]),
+			.i_rs2_addr(Instruction[24:20]),
+			.i_rd_addr(Instruction[11:7]),
+			.i_rd_data(Data_Writeback),
+			.i_rd_wren(RegWen),
+
+			.o_rs1_data(RS1_Out),
+			.o_rs2_data(RS2_Out)
+			);
+							
+							
+BRC BranchComparision(
+			.i_rs1_data(RS1_Out),
+			.i_rs2_data(RS2_Out), 
+			.i_br_un(BrUn), 
+			.o_br_less(BrLT), 
+			.o_br_equal(BrEQ)
+			);
+					
+							
+mux2to1_32bit A_Select(
+			.In1(RS1_Out),
+			.In2(PC_out),
+			.sel(ASel),
+			.out(A_Out)
+			);
+
+mux2to1_32bit LUI_Select(
+			.In1(A_Out),
+			.In2(32'h0),
+			.sel(LUI_Sel),
+			.out(A_Out_Sub)
+			);
+
+	
+mux2to1_32bit B_Select(
+			.In1(RS2_Out),
+			.In2(Immediate),
+			.sel(BSel),
+			.out(B_Out)
+			);		
+							
+							
+alu_control ALU_Control(
+			.funct3(Instruction[14:12]),
+			.funct7(Instruction[30]),			//Bit number 5 of funct7
+			.ALU_op(ALU_op),
+			.opcode_bit5(Instruction[5]),
+			.Opcode(ALU_Opcode)
+			);
+		
+					
+ALU ALU(
+	 .i_op_a(A_Out_Sub),
+	 .i_op_b(B_Out),
+	 .i_alu_op(ALU_Opcode),
+	 .o_alu_data(ALU_Out)
+	);
+		 
+				
+lsu LoadStore_Unit(
+		.i_clk(i_clk),
+		.i_reset(i_reset),
+		.i_load_type(LoadType),		
+		.i_load_signed(LoadSigned),			
+		
+		.i_lsu_addr(ALU_Out),
+		.i_st_data(RS2_Out),
+		.i_lsu_wren(MemRW),				
+		.i_io_sw(i_io_sw),
+		
+		.o_ld_data(o_ld_data),
+		.o_io_ledr(o_io_ledr),
+		.o_io_ledg(o_io_ledg),
+		.o_io_lcd(o_io_lcd),
+		
+		.o_io_hex03(o_io_hex03),
+		.o_io_hex47(o_io_hex47)
+		);									
+						
+
+mux4to1_32bit WriteBack(
+			.In1(o_ld_data),
+			.In2(ALU_Out),
+			.In3(PC_plus4),
+			.In4(32'b0), 
+			.sel(WBSel),
+			.out(Data_Writeback)
+			);	
+
+/*
+register_32bit PC_Debug(
+			.data_in(PC_out),
+			.load(1'b1),
+			.clear(i_reset),
+			.clk(i_clk),
+			.OUT(o_pc_debug)
+			);
+*/
+
+endmodule 
