@@ -65,7 +65,7 @@ datapath Datapath(
 						.i_reset(i_low_reset),
 						.PCSel(PCSel),
 				
-						.ImmSel(ImmSel),	//ImmSel = 00_00 : I_Format
+						.ImmSel(ImmSel),				//ImmSel = 00_00 : I_Format
 														//ImmSel = 00_01 : S_Format
 														//ImmSel = 00_10 : B_Format
 														//ImmSel = 01_xx : J_Format
@@ -74,16 +74,16 @@ datapath Datapath(
 						.BrUn(BrUn),
 					
 						
-						.BSel(BSel),			//If 0 select RS2, else select BRC
-						.ASel(ASel),			//If 0 select RS1, else select BRC
-						.ALU_op(ALU_op),
+						.BSel(BSel),					//If 0 select RS2, else select BRC
+						.ASel(ASel),					//If 0 select RS1, else select BRC
+						.ALU_op(ALU_op),	
 						
-						.LoadType(LoadType),   							// 0001: load byte | 0011: load halfword | 1111: load word
-						.LoadSigned(LoadSigned),			//if 0 is unsigned, 1 is signed	
+						.LoadType(LoadType),   			// 0001: load byte | 0011: load halfword | 1111: load word
+						.LoadSigned(LoadSigned),		//if 0 is unsigned, 1 is signed	
 						
-						.MemRW(MemRW),							//1 is Writing, 0 is Reading
+						.MemRW(MemRW),					//1 is Writing, 0 is Reading
 						
-						.WBSel(WBSel),							//0 is Load Data, 1 is ALU Out, 2 is PC + 4
+						.WBSel(WBSel),					//0 is Load Data, 1 is ALU Out, 2 is PC + 4
 						.LUI_Sel(LUI_Sel),
 						
 					
@@ -95,11 +95,9 @@ datapath Datapath(
 						.o_io_hex47(o_io_hex47),
 						
 						.o_pc_debug(o_pc_debug),
-						//output logic o_insn_vld,
 						.instr(instr),
 						.BrLT(BrLT),
 						.BrEQ(BrEQ)
-						//output logic [31:0] data_writeback
 						);
 
 assign o_io_hex0 = o_io_hex03[6:0];

@@ -21,21 +21,20 @@ module control_unit(
 
 always_comb begin
 	o_insn_vld = 1'b1;
-    MemRW = 1'b0;
-    LoadSigned = 1'b0;
-    LoadType = 4'b1111;
-    BrUn = 1'b0; 
-    PCSel = 1'b0;
-    LUI_Sel = 1'b0;
-    ALU_op = 2'b00;
-    ASel = 1'b0;
-    BSel = 1'b0;
-    BrUn = 1'b0;
-    RegWen = 1'b0;
-    ImmSel = 4'b0;
-    PCSel = 1'b0;
-    WBSel = 2'b0;
-	 
+	MemRW = 1'b0;
+	LoadSigned = 1'b0;
+	LoadType = 4'b1111;
+	BrUn = 1'b0; 
+	PCSel = 1'b0;
+	LUI_Sel = 1'b0;
+	ALU_op = 2'b00;
+	ASel = 1'b0;
+	BSel = 1'b0;
+	BrUn = 1'b0;
+	RegWen = 1'b0;
+	ImmSel = 4'b0;
+	PCSel = 1'b0;
+	WBSel = 2'b0;
 
 case(instr[6:0])
     //-------------------R-Type--------------------------
@@ -155,7 +154,24 @@ case(instr[6:0])
                         ALU_op = 2'b10; 
                         WBSel = 2'b01;
                         PCSel = ~BrLT;
-                     end  
+                     end 
+				default:begin
+							o_insn_vld = 1'b1;
+							MemRW = 1'b0;
+							LoadSigned = 1'b0;
+							LoadType = 4'b1111;
+							BrUn = 1'b0; 
+							PCSel = 1'b0;
+							LUI_Sel = 1'b0;
+							ALU_op = 2'b00;
+							ASel = 1'b0;
+							BSel = 1'b0;
+							BrUn = 1'b0;
+							RegWen = 1'b0;
+							ImmSel = 4'b0;
+							PCSel = 1'b0;
+							WBSel = 2'b0;
+				end	
         endcase
     end
 
@@ -223,6 +239,24 @@ case(instr[6:0])
                         MemRW = 1'b1;
                         LoadType = 4'b1111;
                     end
+
+				default:begin
+						o_insn_vld = 1'b1;
+						MemRW = 1'b0;
+						LoadSigned = 1'b0;
+						LoadType = 4'b1111;
+						BrUn = 1'b0; 
+						PCSel = 1'b0;
+						LUI_Sel = 1'b0;
+						ALU_op = 2'b00;
+						ASel = 1'b0;
+						BSel = 1'b0;
+						BrUn = 1'b0;
+						RegWen = 1'b0;
+						ImmSel = 4'b0;
+						PCSel = 1'b0;
+						WBSel = 2'b0;
+				end	
         endcase
     end
 
@@ -298,12 +332,42 @@ case(instr[6:0])
                             LoadSigned = 1'b0;      //Unsigned
                             LoadType = 4'b0011;
                          end
+	 			default:begin
+						o_insn_vld = 1'b1;
+						MemRW = 1'b0;
+						LoadSigned = 1'b0;
+						LoadType = 4'b1111;
+						BrUn = 1'b0; 
+						PCSel = 1'b0;
+						LUI_Sel = 1'b0;
+						ALU_op = 2'b00;
+						ASel = 1'b0;
+						BSel = 1'b0;
+						BrUn = 1'b0;
+						RegWen = 1'b0;
+						ImmSel = 4'b0;
+						PCSel = 1'b0;
+						WBSel = 2'b0;
+				end	
             endcase
     end
     default: begin
-                o_insn_vld = 1'b0;
-                ALU_op = 2'b00;
-    end
+               o_insn_vld = 1'b0;
+               ALU_op = 2'b00;
+					MemRW = 1'b0;
+					LoadSigned = 1'b0;
+					LoadType = 4'b1111;
+					BrUn = 1'b0; 
+					PCSel = 1'b0;
+					LUI_Sel = 1'b0;
+					ASel = 1'b0;
+					BSel = 1'b0;
+					BrUn = 1'b0;
+					RegWen = 1'b0;
+					ImmSel = 4'b0;
+					PCSel = 1'b0;
+					WBSel = 2'b0;
+					end
 endcase    
 end
 endmodule

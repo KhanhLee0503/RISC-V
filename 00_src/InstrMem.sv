@@ -6,7 +6,8 @@ module InstrMem(
 logic [31:0] mem_word [0:2047];
 
 initial begin
-	$readmemh("/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/02_test/dump/isa_4b.hex", mem_word);
+	//$readmemh("/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/02_test/dump/isa_4b.hex", mem_word);
+	$readmemh("C:/SystemVerilog/Milestone2/RISC-V/02_test/dump/isa_4b.hex", mem_word);
 end
 
 always_comb begin
