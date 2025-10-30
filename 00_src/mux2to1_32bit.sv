@@ -124,8 +124,6 @@ mux2to1_32bit mux3(.In1(stage1_1), .In2(stage1_2), .sel(sel[2]), .out(out));
 endmodule
 
 
-
-
 /////////////////////
 //MUX 16 to 1 32bit//
 /////////////////////
@@ -467,3 +465,29 @@ mux2to1_5bit mux2(.In1(In3), .In2(In4), .sel(sel[0]), .out(stage1_2));
 //stage_1
 mux2to1_5bit mux3(.In1(stage1_1), .In2(stage1_2), .sel(sel[1]), .out(out));
 endmodule
+
+
+
+
+////////////////////
+//MUX 4 to 1 8bit//
+////////////////////
+module mux4to1_8bit(
+					input logic [7:0] In1,
+					input logic [7:0] In2,
+					input logic [7:0] In3,
+					input logic [7:0] In4, 
+					input logic [1:0] sel,
+					output logic [7:0] out
+					);
+wire [7:0]stage1_1;
+wire [7:0]stage1_2;
+
+//stage_0
+mux2to1_8bit mux1(.In1(In1), .In2(In2), .sel(sel[0]), .out(stage1_1));
+mux2to1_8bit mux2(.In1(In3), .In2(In4), .sel(sel[0]), .out(stage1_2));
+
+//stage_1
+mux2to1_8bit mux3(.In1(stage1_1), .In2(stage1_2), .sel(sel[1]), .out(out));
+endmodule
+

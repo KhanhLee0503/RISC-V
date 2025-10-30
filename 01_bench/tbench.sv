@@ -3,24 +3,23 @@
 `define FINISH       100_000
 
 
-
-
 module tbench;
 
 // Clock and reset generator
 logic i_clk;
 logic i_reset;
 
+
 initial tsk_clock_gen(i_clk, `CLK_PERIOD);
 initial tsk_reset(i_reset, `RESET_PERIOD); // Active Low Reset
 initial tsk_timeout(`FINISH);
+
 
 // Wave dumping
 initial begin: proc_dump_shm
     $shm_open("wave.shm");
     $shm_probe(dut, "AS");
 end
-
 
 
 logic [31:0]  i_io_sw  ;

@@ -17,6 +17,11 @@ module lsu(
 				output logic [31:0] o_io_hex03,
 				output logic [31:0] o_io_hex47
 			  );
+logic [1:0] byte_offset;
+assign byte_offset = i_lsu_addr[1:0];
+logic [31:0] memory_out_shifted;
+logic [31:0] memory_in_shifted;
+logic [3:0] masked;
 
 //Wires for selecting Load Type			  
 logic word_sel;
@@ -270,11 +275,26 @@ loadtype load_switch(
 					);
 
 
+Shifter ShiftByte_IN(
+				  .In(i_st_data),
+				  .ShAm({byte_offset,3'b0}),					//Multiply Byte_Offset by 8
+				  .Shift_sel(2'b01),							//00: Shift Right Logic,
+																//01: Shift Left Logic,
+																//10: Shift Right Arithmetic
+				  .OUT(memory_in_shifted)
+				);
+
+MaskSel MaskSelect(
+					.loadtype(i_load_type),
+					.addr_offset(byte_offset),
+					.bmask(masked)
+				  );
+
 DataMem DataMem(
 					 .i_clk(i_clk),
 					 .i_addr(i_lsu_addr[10:0]),
-					 .i_wdata(i_st_data),
-					 .i_bmask(i_load_type), 
+					 .i_wdata(memory_in_shifted),
+					 .i_bmask(masked), 
 					 .i_wren(data_wren_in & i_lsu_wren),
 					 .o_rdata(memory_out_sub)
 					);	
@@ -286,8 +306,17 @@ mux2to1_32bit muxout_datamem(
 						 .out(memory_out)
 						);
 
+Shifter ShiftByte_OUT(
+				  .In(memory_out),
+				  .ShAm({byte_offset,3'b0}),	//Multiply Byte_Offset by 8
+				  .Shift_sel(2'b0),							//00: Shift Right Logic,
+															//01: Shift Left Logic,
+															//10: Shift Right Arithmetic
+				  .OUT(memory_out_shifted)
+					);
+
 loadtype loadtype(
-					.data_in(memory_out),
+					.data_in(memory_out_shifted),
 					.load_type(i_load_type),
 					.load_signed(i_load_signed),
 					.data_out(memory_out_signed)
@@ -507,4 +536,36 @@ mux8to1_32bit sel_out(
 					.sel({load_word,load_half,load_byte}),
 					.out(data_out)
 					);	
+endmodule
+
+
+
+module MaskSel(
+				input logic [3:0] loadtype,
+				input logic [1:0] addr_offset,
+				output logic [3:0] bmask);
+
+always_comb begin
+	if (loadtype == 4'b1111) bmask = 4'b1111;
+
+	else if(loadtype == 4'b0011) begin
+		case(addr_offset)
+			2'b00: bmask = 4'b0011;
+			2'b10: bmask = 4'b1100;
+			default: bmask = 4'b0;
+		endcase
+	end
+
+	else if(loadtype == 4'b0001) begin
+		case(addr_offset)
+			2'b00: bmask = 4'b0001;
+			2'b01: bmask = 4'b0010;
+			2'b10: bmask = 4'b0100;
+			2'b11: bmask = 4'b1000;
+			default: bmask = 4'b0;
+		endcase
+	end
+
+	else bmask = 4'b0;
+end
 endmodule
