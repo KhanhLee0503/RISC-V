@@ -44,6 +44,7 @@ logic [31:0] PCSel_out;
 
 logic [31:0] PC_out;
 assign o_pc_debug = PC_out;
+
 logic [31:0] PC_plus4;
 
 logic [31:0] Instruction;
@@ -95,7 +96,7 @@ adder_32bit ADDER_PC(
 					
 					
 InstrMem Instruction_Memory( 
-			   .i_addr(PC_out[12:0]),
+			   .i_addr(PC_out[10:0]),
 			   .o_rdata(Instruction)
 			   );					
 	
