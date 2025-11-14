@@ -1,5 +1,5 @@
 module single_cycle(
-						input logic i_clk,
+						input logic clk,
 						input logic i_reset,
 						input logic [31:0] i_io_sw,
 						
@@ -17,9 +17,8 @@ module single_cycle(
 						output logic [31:0] o_pc_debug,
 						output logic o_insn_vld
 						);
-
-logic i_low_reset;
-assign i_low_reset = ~i_reset;
+logic i_clk;						
+						
 						
 logic [31:0] instr;						
 logic  BrLT;
@@ -39,6 +38,11 @@ logic LUI_Sel;
 
 logic [31:0] o_io_hex03;
 logic [31:0] o_io_hex47;
+
+Clock_div clock_div(
+				.clk(clk), 
+				.i_clk(i_clk)
+				);
 
 control_unit Control_Unit(
 								   .instr(instr),

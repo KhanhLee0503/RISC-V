@@ -292,7 +292,7 @@ MaskSel MaskSelect(
 
 DataMem DataMem(
 					 .i_clk(i_clk),
-					 .i_addr(i_lsu_addr[10:0]),
+					 .i_addr(i_lsu_addr[9:0]),
 					 .i_wdata(memory_in_shifted),
 					 .i_bmask(masked), 
 					 .i_wren(data_wren_in & i_lsu_wren),

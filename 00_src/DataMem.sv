@@ -1,16 +1,16 @@
 module DataMem(
     input  logic        i_clk, 
-    input  logic [10:0] i_addr,
+    input  logic [9:0] i_addr,
     input  logic [31:0] i_wdata,
     input  logic [3:0]  i_bmask,
     input  logic        i_wren,
     output logic [31:0] o_rdata
 );
 
-logic [8:0] word_addr;
-assign word_addr = i_addr[10:2];
+logic [7:0] word_addr;
+assign word_addr = i_addr[9:2];
 
-reg [31:0] mem_word [0:511];
+reg [31:0] mem_word [0:255];
 
 initial begin
 	//$readmemh("/home/yellow/ktmt_l01_l02_6/workspace/singlecyle_test/02_test/dump/reset.hex", mem_word);
